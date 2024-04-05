@@ -344,7 +344,7 @@ const rulesets = [
 ];
 
 export async function getRulesets() {
-  return games;
+  return rulesets;
 }
 
 const activeRulesets = {
