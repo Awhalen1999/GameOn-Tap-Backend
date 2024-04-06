@@ -38,17 +38,28 @@ export async function getRulesets(
 
 // Handler function to get the active ruleset for a specific game
 export async function getActiveRuleset(
-  c: Context<Env, '/:gameid/rulesets/activeRulesets', BlankInput>
+  c: Context<Env, '/:gameid/rulesets/activeRuleset', BlankInput>
 ) {
   const gameId = c.req.param('gameid');
 
   try {
-    const activeRuleset = await api.getGameActiveRuleset(gameId);
-    return c.json(activeRuleset);
+    // Get the name of the active ruleset
+    const activeRulesetName = await api.getGameActiveRuleset(gameId);
+
+    // Get the actual ruleset using the active ruleset name
+    const rulesets = await api.getRulesets(gameId);
+    const activeRuleset = rulesets[activeRulesetName];
+
+    if (activeRuleset) {
+      return c.json(activeRuleset);
+    } else {
+      throw new Error('Active ruleset not found in rulesets');
+    }
   } catch (error: unknown) {
-    c.status(404);
-    return c.json({ message: (error as Error).message });
+    c.status(error instanceof Error ? 404 : 500);
+    return c.json({
+      message:
+        error instanceof Error ? error.message : 'An unexpected error occurred',
+    });
   }
 }
-
-// add a function that will use the active ruleset to look up the ruleset from the rulesets object
