@@ -19,11 +19,11 @@ export async function getGame(gameId: string) {
 
 // API function to get all rulesets for a specific game
 export async function getRulesets(gameId: string) {
-  const rulesets: any = await data.getRulesets();
-  const ruleset = rulesets[gameId];
+  const rulesets: any[] = await data.getRulesets();
+  const ruleset = rulesets.find((ruleset) => ruleset.gameId === gameId);
 
   if (ruleset) {
-    return ruleset;
+    return ruleset.rules;
   } else {
     throw new Error('Ruleset not found');
   }
@@ -36,11 +36,11 @@ export async function getGameActiveRuleset(gameId: string) {
   const activeRulesetName = activeRulesets[gameId];
 
   if (activeRulesetName) {
-    const rulesets: any = await data.getRulesets();
-    const activeRuleset = rulesets[gameId][activeRulesetName];
+    const rulesets: any[] = await data.getRulesets();
+    const gameRuleset = rulesets.find((ruleset) => ruleset.gameId === gameId);
 
-    if (activeRuleset) {
-      return activeRuleset;
+    if (gameRuleset && gameRuleset.rules[activeRulesetName]) {
+      return gameRuleset.rules[activeRulesetName];
     } else {
       throw new Error('Active ruleset not found in rulesets');
     }

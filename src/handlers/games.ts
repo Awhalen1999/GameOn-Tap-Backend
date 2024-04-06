@@ -43,10 +43,8 @@ export async function getActiveRuleset(
   const gameId = c.req.param('gameid');
 
   try {
-    // Get the name of the active ruleset
     const activeRulesetName = await api.getGameActiveRuleset(gameId);
 
-    // Get the actual ruleset using the active ruleset name
     const rulesets = await api.getRulesets(gameId);
     const activeRuleset = rulesets[activeRulesetName];
 
