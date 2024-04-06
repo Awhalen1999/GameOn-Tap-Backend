@@ -20,50 +20,50 @@ const rulesets = [
   'KingsCup',
   {
     default: {
-      2: {
+      '2': {
         result: 'Two',
         title: 'You',
         description: 'Whoever draws this can choose anyone to take a drink.',
       },
-      3: {
+      '3': {
         result: 'Three',
         title: 'Me',
         description: 'The person who draws this takes a drink.',
       },
-      4: {
+      '4': {
         result: 'Four',
         title: 'Floor',
         description: 'The last person to touch the floor takes a drink.',
       },
-      5: {
+      '5': {
         result: 'Five',
         title: 'Guys',
         description: 'All the guys at the table drink.',
       },
-      6: {
+      '6': {
         result: 'Six',
         title: 'Chicks',
         description: 'All the girls at the table drink.',
       },
-      7: {
+      '7': {
         result: 'Seven',
         title: 'Heaven',
         description:
           'If you draw this card, raise your hand above you head. Every other player must do so as well. The last person takes a drink.',
       },
-      8: {
+      '8': {
         result: 'Eight',
         title: 'Mate',
         description:
           'Choose someone to be your mate. For the rest of the game, they drink when you drink.',
       },
-      9: {
+      '9': {
         result: 'Nine',
         title: 'Rhyme',
         description:
           "You say a word, then the person to your right has to say a word that rhymes. This continues until someone can't think of a word. That person takes a drink. You can't reuse words.",
       },
-      10: {
+      '10': {
         result: 'Ten',
         title: 'Categories',
         description:
@@ -111,19 +111,19 @@ const rulesets = [
   'RideTheBus',
   {
     default: {
-      1: {
+      '1': {
         result: 'Ride The Bus Rules',
         title: 'Objective',
         description:
           'Pick a number of seats for the bus ride. Each seat will be 1 card. The goal is to guess the next cards value correctly. If you guess correctly, you move on to the next seat. If you guess incorrectly, you drink and start over. If you successfully make it through all seats you may get off the bus.',
       },
-      2: {
+      '2': {
         result: 'Higher/Lower',
         title: 'Higher/Lower',
         description:
           'Correctly guess if the next card drawn from the deck will be Higher, Lower, or Equal to the current cards value. (A is lowest K is highest) .',
       },
-      3: {
+      '3': {
         result: 'Red/Black',
         title: 'Red/Black',
         description:
@@ -135,13 +135,13 @@ const rulesets = [
   'Snap',
   {
     default: {
-      1: {
+      '1': {
         result: 'Value',
         title: 'Value',
         description:
           'Snap when the value of the cards are the same. ex. 2 of hearts and 2 of spades.',
       },
-      2: {
+      '2': {
         result: 'Suit',
         title: 'Suit',
         description:
@@ -153,18 +153,18 @@ const rulesets = [
   'Trivia',
   {
     default: {
-      1: {
+      '1': {
         result: 'Trivia Rules',
         title: 'Objective',
         description: 'Correctly answer the trivia questions to win.',
       },
-      2: {
+      '2': {
         result: 'VS Mode',
         title: 'VS Mode',
         description:
           'Each player receives a predetermined number of trivia questions. Player with the lowest score drinks. ',
       },
-      3: {
+      '3': {
         result: 'Card-by-Card',
         title: 'Card-by-Card',
         description:
@@ -176,7 +176,7 @@ const rulesets = [
   'PromptDash',
   {
     default: {
-      1: {
+      '1': {
         result: 'Prompt Dash Rules',
         title: 'Objective',
         description:
@@ -188,63 +188,63 @@ const rulesets = [
   'DiceRoll',
   {
     default: {
-      2: {
+      '2': {
         result: 'Two',
         title: 'Two for You',
         description:
           'Whoever rolls this can choose anyone to take 2 sips from their drink.',
       },
-      3: {
+      '3': {
         result: 'Three',
         title: 'Me',
         description: 'The roller takes 1 drink.',
       },
-      4: {
+      '4': {
         result: 'Four',
         title: 'Pass it on',
         description:
           'The roller is protected from their next drink, the player to their left must take it instead.',
       },
-      5: {
+      '5': {
         result: 'Five',
         title: 'Give and Take',
         description: 'Give out 3 drinks, and take 2 yourself.',
       },
-      6: {
+      '6': {
         result: 'Six',
         title: 'Double Whammy',
         description:
           'Players on the rollers left and right must both take a drink. The roller is safe.',
       },
-      7: {
+      '7': {
         result: 'Seven',
         title: 'Lucky Seven',
         description: 'The roller is safe from drinking until their next turn.',
       },
-      8: {
+      '8': {
         result: 'Eight',
         title: 'Odd or Even',
         description:
           'The roller predicts whether the next roll will be odd or even. If correct, they choose someone to drink. If incorrect, they drink.',
       },
-      9: {
+      '9': {
         result: 'Nine',
         title: 'Social',
         description: 'Everyone Drinks.',
       },
-      10: {
+      '10': {
         result: 'Ten',
         title: 'Perfect Ten',
         description:
           'If both dice show the number 5, everyone else drinks. Otherwise the roller drinks.',
       },
-      11: {
+      '11': {
         result: 'Eleven',
         title: 'Rule Master',
         description:
           'Make a rule that everyone must follow until the next "Eleven" is rolled. Anyone who breaks the rule drinks.',
       },
-      12: {
+      '12': {
         result: 'Twelve',
         title: 'Midnight',
         description: 'Everyone finishes or takes 3 sips from their drink.',
@@ -255,65 +255,65 @@ const rulesets = [
   'DrinkRoulette',
   {
     default: {
-      1: {
+      '1': {
         result: 'One',
         title: 'Straight Shot',
         description:
           "The Spinner take's a straight shot of liquor or 3 sips of another drink.",
       },
-      2: {
+      '2': {
         result: 'Two',
         title: 'Choice',
         description: 'The spinner chooses another player to take a drink.',
       },
-      3: {
+      '3': {
         result: 'Three',
         title: 'Water Break',
         description: " You're safe from drinking this round.",
       },
-      4: {
+      '4': {
         result: 'Four',
         title: 'Mystery',
         description: 'Take a drink of a mystery concoction made by the group.',
       },
-      5: {
+      '5': {
         result: 'Five',
         title: 'Mix It Up',
         description: 'Swap drinks with another player for a round.',
       },
-      6: {
+      '6': {
         result: 'Six',
         title: 'Target',
         description: `Any "Spinner's Choice" spins automatically are given to you until your next turn.`,
       },
-      7: {
+      '7': {
         result: 'Seven',
         title: 'Middle',
         description: "Players on spinner's right and left drink.",
       },
-      8: {
+      '8': {
         result: 'Eight',
         title: 'Bartender',
         description:
           'The spinner creates a unique drink and chooses a player to enjoy it.',
       },
-      9: {
+      '9': {
         result: 'Nine',
         title: 'Add or Take',
         description:
           'The spinner may choose to take 1 drink or add 1 drink and pass it on to the next player, who will be given the same choice. This can continue until the total reaches 4 drinks, at which point the last player must drink all 4.',
       },
-      10: {
+      '10': {
         result: 'Ten',
         title: 'Generosity',
         description: 'The spinner generously makes all others players drink.',
       },
-      11: {
+      '11': {
         result: 'Eleven',
         title: 'Right Hand',
         description: "Player on spinner's right drinks.",
       },
-      12: {
+      '12': {
         result: 'Twelve',
         title: 'Spinner Drinks',
         description: 'The spinner takes a drink',
@@ -324,18 +324,18 @@ const rulesets = [
   'BountyBlast',
   {
     default: {
-      1: {
+      '1': {
         result: 'Empty Chest',
         title: 'Empty Chest',
         description: 'Safe! This chest is empty.',
       },
-      2: {
+      '2': {
         result: 'Treasure',
         title: 'Treasure',
         description:
           'Congratulations! You found treasure! You may assign a drink to another player or be safe from your next bomb!',
       },
-      3: {
+      '3': {
         result: 'Bomb',
         title: 'Bomb',
         description: 'Oh no! You found a bomb! Drink up!',
