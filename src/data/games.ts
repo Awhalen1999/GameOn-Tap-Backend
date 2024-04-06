@@ -14,6 +14,8 @@ export async function getGames() {
   return games;
 }
 
+// should I add both default and customRulesets to 1 object (gameRulesets) and return that object?
+
 const rulesets = [
   'KingsCup',
   {
@@ -348,14 +350,14 @@ export async function getRulesets() {
 }
 
 const activeRulesets = {
-  KingsCup: {},
-  RideTheBus: {},
-  Snap: {},
-  Trivia: {},
-  PromptDash: {},
-  DiceRoll: {},
-  DrinkRoulette: {},
-  BountyBlast: {},
+  KingsCup: 'default',
+  RideTheBus: 'default',
+  Snap: 'default',
+  Trivia: 'default',
+  PromptDash: 'default',
+  DiceRoll: 'default',
+  DrinkRoulette: 'default',
+  BountyBlast: 'default',
 };
 
 export async function getActiveRulesets() {

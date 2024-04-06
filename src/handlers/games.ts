@@ -50,3 +50,5 @@ export async function getActiveRuleset(
     return c.json({ message: (error as Error).message });
   }
 }
+
+// add a function that will use the active ruleset to look up the ruleset from the rulesets object
