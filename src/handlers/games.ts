@@ -44,20 +44,16 @@ export async function getActiveRuleset(
 
   try {
     const activeRulesetName = await api.getGameActiveRuleset(gameId);
-
     const rulesets = await api.getRulesets(gameId);
     const activeRuleset = rulesets[activeRulesetName];
 
-    if (activeRuleset) {
-      return c.json(activeRuleset);
-    } else {
+    if (!activeRuleset) {
       throw new Error('Active ruleset not found in rulesets');
     }
+
+    return c.json(activeRuleset);
   } catch (error: unknown) {
-    c.status(error instanceof Error ? 404 : 500);
-    return c.json({
-      message:
-        error instanceof Error ? error.message : 'An unexpected error occurred',
-    });
+    c.status(404);
+    return c.json({ message: '404 error' });
   }
 }

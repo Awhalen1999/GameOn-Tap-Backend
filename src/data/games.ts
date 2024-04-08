@@ -105,7 +105,7 @@ const rulesets = [
             'The person who draws the last King must drink the entire King’s Cup.',
         },
       },
-      customRulesets: {},
+      'KC custom ruleset 1': {},
     },
   },
   {
@@ -131,7 +131,6 @@ const rulesets = [
             'Correctly guess if the next card drawn from the deck will be Red (Heart or Diamond) or Black (Spade or Club).',
         },
       },
-      customRulesets: {},
     },
   },
   {
@@ -151,7 +150,6 @@ const rulesets = [
             'Snap when the suit of the cards are the same. ex. 2 of hearts and 3 of hearts.',
         },
       },
-      customRulesets: {},
     },
   },
   {
@@ -176,7 +174,6 @@ const rulesets = [
             'Players take turns answering 1 question at a time. Guess correctly, you are safe. Guess incorrectly, you drink.',
         },
       },
-      customRulesets: {},
     },
   },
   {
@@ -190,7 +187,6 @@ const rulesets = [
             'Draw a random prompt card from the deck and race against other players to complete the challenge as quickly as possible to avoid the punishment.',
         },
       },
-      customRulesets: {},
     },
   },
   {
@@ -260,7 +256,7 @@ const rulesets = [
           description: 'Everyone finishes or takes 3 sips from their drink.',
         },
       },
-      customRulesets: {},
+      'DR custom ruleset 1': {},
     },
   },
   {
@@ -332,7 +328,7 @@ const rulesets = [
           description: 'The spinner takes a drink',
         },
       },
-      customRulesets: {},
+      'DR custom ruleset 1': {},
     },
   },
   {
@@ -356,7 +352,7 @@ const rulesets = [
           description: 'Oh no! You found a bomb! Drink up!',
         },
       },
-      customRulesets: {},
+      'BB custom ruleset 1': {},
     },
   },
 ];
@@ -365,16 +361,16 @@ export async function getRulesets() {
   return rulesets;
 }
 
-const activeRulesets = {
-  KingsCup: 'default',
-  RideTheBus: 'default',
-  Snap: 'default',
-  Trivia: 'default',
-  PromptDash: 'default',
-  DiceRoll: 'default',
-  DrinkRoulette: 'default',
-  BountyBlast: 'default',
-};
+const activeRulesets = [
+  { gameId: 'KingsCup', activeRuleset: 'default' },
+  { gameId: 'RideTheBus', activeRuleset: 'default' },
+  { gameId: 'Snap', activeRuleset: 'default' },
+  { gameId: 'Trivia', activeRuleset: 'default' },
+  { gameId: 'PromptDash', activeRuleset: 'default' },
+  { gameId: 'DiceRoll', activeRuleset: 'default' },
+  { gameId: 'DrinkRoulette', activeRuleset: 'default' },
+  { gameId: 'BountyBlast', activeRuleset: 'default' },
+];
 
 export async function getActiveRulesets() {
   return activeRulesets;
