@@ -1,7 +1,7 @@
 import { serve } from '@hono/node-server';
 import { Hono } from 'hono';
 import { cors } from 'hono/cors';
-import { GamesRouter } from './routers';
+import { GamesRouter, UsersRouter, RulesetsRouter } from './routers';
 
 const app = new Hono();
 
@@ -9,6 +9,8 @@ const app = new Hono();
 app.all(cors({ origin: 'https://awhalen1999.github.io/GameOn-Tap/' }));
 
 app.route('/games', GamesRouter);
+app.route('/rulesets', RulesetsRouter);
+app.route('/users', UsersRouter);
 
 const port = 3000;
 
