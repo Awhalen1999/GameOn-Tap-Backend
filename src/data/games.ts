@@ -1,4 +1,6 @@
-const games = [
+import { Game } from '../types';
+
+const games: Game[] = [
   { id: 'KingsCup', name: 'Kings Cup' },
   { id: 'RideTheBus', name: 'Ride The Bus' },
   { id: 'Snap', name: 'Snap' },
@@ -10,7 +12,7 @@ const games = [
   { id: 'BountyBlast', name: 'Bounty Blast' },
 ];
 
-export async function getGames() {
+export async function getGames(): Promise<Game[]> {
   return games;
 }
 
