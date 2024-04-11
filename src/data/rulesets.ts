@@ -4,7 +4,7 @@ const rulesets: Ruleset[] = [
   {
     id: '0',
     gameId: 'KingsCup',
-    userId: '0',
+    userId: '1',
     name: 'Default Kings Cup Ruleset',
     rules: {
       '2': {
@@ -97,7 +97,7 @@ const rulesets: Ruleset[] = [
   {
     id: '0',
     gameId: 'RideTheBus',
-    userId: '0',
+    userId: '1',
     name: 'Default Ride The Bus Ruleset',
     rules: {
       '1': {
@@ -123,7 +123,7 @@ const rulesets: Ruleset[] = [
   {
     id: '0',
     gameId: 'Snap',
-    userId: '0',
+    userId: '1',
     name: 'Default Snap Ruleset',
     rules: {
       '1': {
@@ -143,7 +143,7 @@ const rulesets: Ruleset[] = [
   {
     id: '0',
     gameId: 'Trivia',
-    userId: '0',
+    userId: '1',
     name: 'Default Trivia Ruleset',
     rules: {
       '1': {
@@ -168,7 +168,7 @@ const rulesets: Ruleset[] = [
   {
     id: '0',
     gameId: 'PromptDash',
-    userId: '0',
+    userId: '1',
     name: 'Default Prompt Dash Ruleset',
     rules: {
       '1': {
@@ -182,7 +182,7 @@ const rulesets: Ruleset[] = [
   {
     id: '0',
     gameId: 'DiceRoll',
-    userId: '0',
+    userId: '1',
     name: 'Default Dice Roll Ruleset',
     rules: {
       '2': {
@@ -251,7 +251,7 @@ const rulesets: Ruleset[] = [
   {
     id: '0',
     gameId: 'DrinkRoulette',
-    userId: '0',
+    userId: '1',
     name: 'Default Drink Roulette Ruleset',
     rules: {
       '1': {
@@ -322,7 +322,7 @@ const rulesets: Ruleset[] = [
   {
     id: '0',
     gameId: 'BountyBlast',
-    userId: '0',
+    userId: '1',
     name: 'Default Bounty Blast Ruleset',
     rules: {
       '1': {
