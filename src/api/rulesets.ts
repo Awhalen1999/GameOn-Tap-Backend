@@ -1,13 +1,15 @@
 import * as data from '../data/rulesets';
 
-// API function to get all rulesets for a specific game
-export async function getRulesets(gameId: string) {
+// API function to get all rulesets for a specific game and user
+export async function getRulesets(userId: string, gameId: string) {
   const rulesets: any[] = await data.getRulesets();
-  const ruleset = rulesets.find((ruleset) => ruleset.gameId === gameId);
+  const userGameRulesets = rulesets.filter(
+    (ruleset) => ruleset.gameId === gameId && ruleset.userId === userId
+  );
 
-  if (ruleset) {
-    return ruleset.rules;
+  if (userGameRulesets.length > 0) {
+    return userGameRulesets;
   } else {
-    throw new Error('Ruleset not found');
+    throw new Error('No rulesets found for this user and game');
   }
 }
