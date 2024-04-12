@@ -9,4 +9,6 @@ const users: User[] = [
   },
 ];
 
-export default users;
+export async function getUsers(): Promise<User[]> {
+  return users;
+}

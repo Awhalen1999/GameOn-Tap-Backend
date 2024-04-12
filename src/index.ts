@@ -9,7 +9,7 @@ const app = new Hono();
 app.all(cors({ origin: 'https://awhalen1999.github.io/GameOn-Tap/' }));
 
 app.route('/games', GamesRouter);
-app.route('/rulesets', RulesetsRouter);
+app.route('/users', RulesetsRouter);
 app.route('/users', UsersRouter);
 
 const port = 3000;

@@ -3,10 +3,10 @@ import { BlankInput } from 'hono/types';
 import * as api from '../api/rulesets';
 
 // Handler function to get all rulesets for a specific game
-export async function getRulesets(
-  c: Context<Env, '/:gameid/rulesets', BlankInput>
+export async function getUserGameRulesets(
+  c: Context<Env, '/:userId/:gameId/rulesets', BlankInput>
 ) {
-  const gameId = c.req.param('gameid');
+  const gameId = c.req.param('gameId');
 
   try {
     const rulesets = await api.getRulesets(gameId);

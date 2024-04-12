@@ -3,6 +3,13 @@ import * as ruleHandlers from '../handlers/rulesets';
 
 const RulesetsRouter = new Hono();
 
+RulesetsRouter.get(
+  '/:userId/:gameId/rulesets',
+  ruleHandlers.getUserGameRulesets
+);
+
+export default RulesetsRouter;
+
 /**
  * Move to rulesets route?
  * get /rulesets/:userId/:gameId/ -> Get all specific user rulesets for a specific game
@@ -10,7 +17,6 @@ const RulesetsRouter = new Hono();
  * get /rulesets/active/:userId/:gameid
  */
 // Endpoint to get all rulesets for a specific game
-RulesetsRouter.get('/:gameid/rulesets', ruleHandlers.getRulesets);
 
 // Endpoint to get active ruleset for a specific game
 // RulesetsRouter.get(
@@ -22,5 +28,3 @@ RulesetsRouter.get('/:gameid/rulesets', ruleHandlers.getRulesets);
  * post /user/login -> sign in
  * get /user/:userId -> get user properties
  */
-
-export default RulesetsRouter;
