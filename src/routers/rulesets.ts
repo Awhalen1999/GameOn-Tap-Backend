@@ -3,9 +3,16 @@ import * as ruleHandlers from '../handlers/rulesets';
 
 const RulesetsRouter = new Hono();
 
+// Route to get all rulesets for a specific user and game
 RulesetsRouter.get(
   '/:userId/:gameId/rulesets',
   ruleHandlers.getUserGameRulesets
+);
+
+// Route to get a specific ruleset for a specific user and game
+RulesetsRouter.get(
+  '/:userId/:gameId/rulesets/:rulesetId',
+  ruleHandlers.getUserGameRuleset
 );
 
 export default RulesetsRouter;
