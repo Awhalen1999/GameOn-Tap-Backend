@@ -38,4 +38,6 @@ export default RulesetsRouter;
 
 /**
  *  todo: add a active ruleset endpoint/data
+ * .get userid/gameid/rulesetid
+ * then use .get specific ruleset function (await) to get the ruleset
  */
