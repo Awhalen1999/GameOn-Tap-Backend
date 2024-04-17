@@ -4,15 +4,18 @@ import * as ruleHandlers from '../handlers/rulesets';
 const RulesetsRouter = new Hono();
 
 // Route to get all rulesets for a specific user and game
-RulesetsRouter.get(
-  '/:userId/:gameId/rulesets',
-  ruleHandlers.getUserGameRulesets
-);
+RulesetsRouter.get('/:userId/:gameId/rulesets', ruleHandlers.getGameRulesets);
 
 // Route to get a specific ruleset for a specific user and game
 RulesetsRouter.get(
   '/:userId/:gameId/rulesets/:rulesetId',
-  ruleHandlers.getUserGameRuleset
+  ruleHandlers.getGameRuleset
+);
+
+// Route to get the active ruleset for a specific user and game
+RulesetsRouter.get(
+  '/:userId/:gameId/activeRuleset',
+  ruleHandlers.getActiveRuleset
 );
 
 export default RulesetsRouter;
