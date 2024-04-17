@@ -26,7 +26,7 @@ export async function getRuleset(
     (ruleset) =>
       ruleset.gameId === gameId &&
       ruleset.userId === userId &&
-      ruleset.rulesetId === rulesetId
+      ruleset.id === rulesetId
   );
 
   if (userGameRuleset) {
