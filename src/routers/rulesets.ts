@@ -35,3 +35,7 @@ export default RulesetsRouter;
  * post /user/login -> sign in
  * get /user/:userId -> get user properties
  */
+
+/**
+ *  todo: add a active ruleset endpoint/data
+ */
