@@ -51,12 +51,5 @@ export async function getActiveRuleset(userId: string, gameId: string) {
     throw new Error('No active ruleset found for this user and game');
   }
 
-  // Get the specific ruleset using the rulesetId of the active ruleset
-  const ruleset = await getRuleset(userId, gameId, activeRuleset.rulesetId);
-
-  if (!ruleset) {
-    throw new Error('No ruleset found with the provided rulesetId');
-  }
-
-  return ruleset;
+  return activeRuleset;
 }
