@@ -8,13 +8,6 @@ export interface Game {
   name: string;
 }
 
-export interface User {
-  id: UserId;
-  email: Email;
-  password: string;
-  theme: string;
-}
-
 export interface Ruleset {
   id: RulesetId;
   gameId: string;
@@ -27,6 +20,25 @@ export interface ActiveRuleset {
   userId: UserId;
   gameId: GameId;
   rulesetId: RulesetId;
+}
+
+export interface User {
+  id: UserId;
+  username: string;
+  email: Email;
+  password: string;
+  theme: string;
+}
+
+export interface LoginInput {
+  email: Email;
+  password: string;
+}
+
+export interface SignupInput {
+  username: string;
+  email: Email;
+  password: string;
 }
 
 /**
