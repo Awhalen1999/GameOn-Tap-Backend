@@ -1,3 +1,5 @@
+import { Input } from 'hono/types';
+
 export type Email = string;
 export type UserId = string;
 export type GameId = string;
@@ -28,6 +30,7 @@ export interface User {
   email: Email;
   password: string;
   theme: string;
+  // theme: 'dark' | 'light';
 }
 
 export interface LoginInput {
