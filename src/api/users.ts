@@ -35,10 +35,15 @@ export async function signupUser(
   password: string
 ) {
   const users = await data.getUsers();
-  const existingUser = users.find((user) => user.email === email);
+  const existingUserByEmail = users.find((user) => user.email === email);
+  const existingUserByUsername = users.find(
+    (user) => user.username === username
+  );
 
-  if (existingUser) {
+  if (existingUserByEmail) {
     throw new Error('Email already in use');
+  } else if (existingUserByUsername) {
+    throw new Error('Username already in use');
   } else {
     const newUser = await data.addUser({
       id: uuidv4(),
