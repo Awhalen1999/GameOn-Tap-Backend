@@ -18,6 +18,12 @@ RulesetsRouter.get(
   ruleHandlers.getActiveRuleset
 );
 
+// Route to update the active ruleset for a specific user and game
+RulesetsRouter.put(
+  '/:userId/:gameId/activeRuleset',
+  ruleHandlers.updateActiveRuleset
+);
+
 export default RulesetsRouter;
 
 /**

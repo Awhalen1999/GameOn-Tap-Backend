@@ -53,3 +53,27 @@ export async function getActiveRuleset(userId: string, gameId: string) {
 
   return activeRuleset;
 }
+
+// API function to update the active ruleset for a specific user and game
+export async function updateActiveRuleset(
+  userId: string,
+  gameId: string,
+  rulesetId: string
+) {
+  // Get the active rulesets data
+  const activeRulesets = await activeData.getActiveRulesets();
+
+  // Find the active ruleset for the user and game
+  const activeRuleset = activeRulesets.find(
+    (ruleset) => ruleset.userId === userId && ruleset.gameId === gameId
+  );
+
+  if (!activeRuleset) {
+    throw new Error('No active ruleset found for this user and game');
+  }
+
+  // Update the active ruleset with the new rulesetId
+  activeRuleset.rulesetId = rulesetId;
+
+  return activeRuleset;
+}

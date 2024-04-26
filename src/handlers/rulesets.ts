@@ -59,3 +59,24 @@ export async function getActiveRuleset(
     return c.json({ message: (error as Error).message });
   }
 }
+
+// Handler function to update the active ruleset for a specific user and game
+export async function updateActiveRuleset(
+  c: Context<Env, '/:userId/:gameId/activeRuleset'>
+) {
+  const userId = c.req.param('userId');
+  const gameId = c.req.param('gameId');
+  const { rulesetId } = (await c.req.json()) as { rulesetId: string };
+
+  try {
+    const updatedActiveRuleset = await api.updateActiveRuleset(
+      userId,
+      gameId,
+      rulesetId
+    );
+    return c.json(updatedActiveRuleset);
+  } catch (error: unknown) {
+    c.status(400);
+    return c.json({ message: (error as Error).message });
+  }
+}
