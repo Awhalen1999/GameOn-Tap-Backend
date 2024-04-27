@@ -80,3 +80,20 @@ export async function updateActiveRuleset(
     return c.json({ message: (error as Error).message });
   }
 }
+
+// Handler function to create a new ruleset for a specific user and game
+export async function createRuleset(
+  c: Context<Env, '/:userId/:gameId/rulesets'>
+) {
+  const userId = c.req.param('userId');
+  const gameId = c.req.param('gameId');
+  const { name, rules } = (await c.req.json()) as { name: string; rules: any };
+
+  try {
+    const newRuleset = await api.createRuleset(userId, gameId, name, rules);
+    return c.json(newRuleset);
+  } catch (error: unknown) {
+    c.status(400);
+    return c.json({ message: (error as Error).message });
+  }
+}

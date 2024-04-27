@@ -373,3 +373,8 @@ const rulesets: Ruleset[] = [
 export async function getRulesets(): Promise<Ruleset[]> {
   return rulesets;
 }
+
+export async function addRuleset(ruleset: Ruleset): Promise<Ruleset> {
+  rulesets.push(ruleset);
+  return ruleset;
+}

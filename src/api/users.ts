@@ -45,8 +45,14 @@ export async function signupUser(
   } else if (existingUserByUsername) {
     throw new Error('Username already in use');
   } else {
+    // Find the highest id
+    const highestId = Math.max(...users.map((user) => Number(user.id)));
+
+    // Increment the highest id to get the id for the new user
+    const newId = String(highestId + 1);
+
     const newUser = await data.addUser({
-      id: uuidv4(),
+      id: newId,
       username,
       email,
       password,

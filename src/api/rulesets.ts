@@ -77,3 +77,38 @@ export async function updateActiveRuleset(
 
   return activeRuleset;
 }
+
+// API function to create a new ruleset for a specific user and game
+export async function createRuleset(
+  userId: string,
+  gameId: string,
+  name: string,
+  rules: any
+) {
+  // Get the rulesets for the user and game
+  const rulesets: any[] = await data.getRulesets();
+  const userGameRulesets = rulesets.filter(
+    (ruleset) => ruleset.gameId === gameId && ruleset.userId === userId
+  );
+
+  // Find the highest id
+  const highestId = Math.max(
+    ...userGameRulesets.map((ruleset) => Number(ruleset.id))
+  );
+
+  // Increment the highest id to get the id for the new ruleset
+  const newId = String(highestId + 1);
+
+  const newRuleset = {
+    id: newId,
+    userId,
+    gameId,
+    name,
+    rules,
+  };
+
+  // Save the new ruleset to your data store
+  await data.addRuleset(newRuleset);
+
+  return newRuleset;
+}
