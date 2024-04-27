@@ -97,3 +97,20 @@ export async function createRuleset(
     return c.json({ message: (error as Error).message });
   }
 }
+
+// Handler function to delete a specific ruleset for a specific user and game
+export async function deleteRuleset(
+  c: Context<Env, '/:userId/:gameId/rulesets/:rulesetId', BlankInput>
+) {
+  const userId = c.req.param('userId');
+  const gameId = c.req.param('gameId');
+  const rulesetId = c.req.param('rulesetId');
+
+  try {
+    await api.deleteRuleset(userId, gameId, rulesetId);
+    return c.json({ message: 'Ruleset deleted successfully' });
+  } catch (error: unknown) {
+    c.status(404);
+    return c.json({ message: (error as Error).message });
+  }
+}

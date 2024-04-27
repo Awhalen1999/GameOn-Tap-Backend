@@ -378,3 +378,7 @@ export async function addRuleset(ruleset: Ruleset): Promise<Ruleset> {
   rulesets.push(ruleset);
   return ruleset;
 }
+
+export async function saveRulesets(rulesets: Ruleset[]): Promise<void> {
+  rulesets = rulesets;
+}

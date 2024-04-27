@@ -27,4 +27,10 @@ RulesetsRouter.put(
 // Route to create a new ruleset for a specific user and game
 RulesetsRouter.post('/:userId/:gameId/rulesets', ruleHandlers.createRuleset);
 
+// Route to delete a specific ruleset for a specific user and game
+RulesetsRouter.delete(
+  '/:userId/:gameId/rulesets/:rulesetId',
+  ruleHandlers.deleteRuleset
+);
+
 export default RulesetsRouter;

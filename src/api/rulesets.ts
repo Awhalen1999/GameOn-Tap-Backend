@@ -112,3 +112,32 @@ export async function createRuleset(
 
   return newRuleset;
 }
+
+// API function to delete a specific ruleset for a specific user and game
+export async function deleteRuleset(
+  userId: string,
+  gameId: string,
+  rulesetId: string
+) {
+  const rulesets: any[] = await data.getRulesets();
+  const userGameRulesetIndex = rulesets.findIndex(
+    (ruleset) =>
+      ruleset.gameId === gameId &&
+      ruleset.userId === userId &&
+      ruleset.id === rulesetId
+  );
+
+  if (userGameRulesetIndex === -1) {
+    throw new Error(
+      'No ruleset found for this user and game with the provided rulesetId'
+    );
+  }
+
+  // Remove the ruleset from the array
+  const deletedRuleset = rulesets.splice(userGameRulesetIndex, 1)[0];
+
+  // Save the updated rulesets array to your data store
+  await data.saveRulesets(rulesets);
+
+  return deletedRuleset;
+}
