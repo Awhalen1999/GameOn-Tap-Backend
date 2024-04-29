@@ -5,8 +5,14 @@ import { GamesRouter, UsersRouter, RulesetsRouter } from './routers';
 
 const app = new Hono();
 
-// Enable CORS for all routes
-app.all(cors({ origin: 'https://awhalen1999.github.io/GameOn-Tap/' }));
+app.all(
+  cors({
+    origin: [
+      'https://awhalen1999.github.io/GameOn-Tap/',
+      'http://localhost:5173',
+    ],
+  })
+);
 
 app.route('/games', GamesRouter);
 app.route('/users', RulesetsRouter);
