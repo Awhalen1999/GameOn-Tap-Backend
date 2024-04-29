@@ -5,7 +5,9 @@ import * as activeData from '../data/active-rulesets';
 export async function getRulesets(userId: string, gameId: string) {
   const rulesets: any[] = await data.getRulesets();
   const userGameRulesets = rulesets.filter(
-    (ruleset) => ruleset.gameId === gameId && ruleset.userId === userId
+    (ruleset) =>
+      ruleset.gameId === gameId &&
+      (ruleset.userId === null || ruleset.userId === userId)
   );
 
   if (userGameRulesets.length > 0) {
@@ -25,7 +27,7 @@ export async function getRuleset(
   const userGameRuleset = rulesets.find(
     (ruleset) =>
       ruleset.gameId === gameId &&
-      ruleset.userId === userId &&
+      (ruleset.userId === null || ruleset.userId === userId) &&
       ruleset.id === rulesetId
   );
 
@@ -38,13 +40,14 @@ export async function getRuleset(
   }
 }
 
+// API function to get the active ruleset for a specific user and game
 export async function getActiveRuleset(userId: string, gameId: string) {
-  // Get the active rulesets data
   const activeRulesets = await activeData.getActiveRulesets();
 
-  // Find the active ruleset for the user and game
   const activeRuleset = activeRulesets.find(
-    (ruleset) => ruleset.userId === userId && ruleset.gameId === gameId
+    (ruleset) =>
+      ruleset.gameId === gameId &&
+      (ruleset.userId === null || ruleset.userId === userId)
   );
 
   if (!activeRuleset) {
@@ -65,7 +68,9 @@ export async function updateActiveRuleset(
 
   // Find the active ruleset for the user and game
   const activeRuleset = activeRulesets.find(
-    (ruleset) => ruleset.userId === userId && ruleset.gameId === gameId
+    (ruleset) =>
+      ruleset.gameId === gameId &&
+      (ruleset.userId === null || ruleset.userId === userId)
   );
 
   if (!activeRuleset) {

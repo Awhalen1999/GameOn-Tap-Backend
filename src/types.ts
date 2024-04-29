@@ -13,7 +13,7 @@ export interface Game {
 export interface Ruleset {
   id: RulesetId;
   gameId: string;
-  userId: string;
+  userId: UserId | null;
   name: string;
   rules: any;
 }
