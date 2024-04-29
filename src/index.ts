@@ -5,7 +5,7 @@ import { GamesRouter, UsersRouter, RulesetsRouter } from './routers';
 
 const app = new Hono();
 
-app.all(
+app.use(
   cors({
     origin: [
       'https://awhalen1999.github.io/GameOn-Tap/',
