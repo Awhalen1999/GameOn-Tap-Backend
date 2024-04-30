@@ -1,6 +1,6 @@
 import { Ruleset } from '../types';
 
-const rulesets: Ruleset[] = [
+let rulesets: Ruleset[] = [
   {
     id: '0',
     gameId: 'KingsCup',
@@ -374,11 +374,10 @@ export async function getRulesets(): Promise<Ruleset[]> {
   return rulesets;
 }
 
-export async function addRuleset(ruleset: Ruleset): Promise<Ruleset> {
+export async function addRuleset(ruleset: Ruleset): Promise<void> {
   rulesets.push(ruleset);
-  return ruleset;
 }
 
-export async function saveRulesets(rulesets: Ruleset[]): Promise<void> {
-  rulesets = rulesets;
+export async function saveRulesets(newRulesets: Ruleset[]): Promise<void> {
+  rulesets = newRulesets;
 }
