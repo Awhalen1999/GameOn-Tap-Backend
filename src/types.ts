@@ -1,3 +1,5 @@
+//todo: set user id to number
+
 import { Input } from 'hono/types';
 
 export type Email = string;
