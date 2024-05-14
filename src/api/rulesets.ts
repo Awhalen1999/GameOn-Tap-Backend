@@ -99,9 +99,10 @@ export async function createRuleset(
   );
 
   // Find the highest id
-  const highestId = Math.max(
-    ...userGameRulesets.map((ruleset) => Number(ruleset.id))
-  );
+  const highestId =
+    userGameRulesets.length > 0
+      ? Math.max(...userGameRulesets.map((ruleset) => Number(ruleset.id)))
+      : 0;
 
   // Increment the highest id to get the id for the new ruleset
   const newId = String(highestId + 1);
