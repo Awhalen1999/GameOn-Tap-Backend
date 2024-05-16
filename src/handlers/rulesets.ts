@@ -9,8 +9,10 @@ export async function getGameRulesets(
   const userId = c.req.param('userId');
   const gameId = c.req.param('gameId');
 
+  const userIdNum = parseInt(userId);
+
   try {
-    const rulesets = await api.getRulesets(userId, gameId);
+    const rulesets = await api.getRulesets(userIdNum, gameId);
     return c.json(rulesets);
   } catch (error: unknown) {
     c.status(404);
@@ -26,8 +28,10 @@ export async function getGameRuleset(
   const gameId = c.req.param('gameId');
   const rulesetId = c.req.param('rulesetId');
 
+  const userIdNum = parseInt(userId);
+
   try {
-    const ruleset = await api.getRuleset(userId, gameId, rulesetId);
+    const ruleset = await api.getRuleset(userIdNum, gameId, rulesetId);
     return c.json(ruleset);
   } catch (error: unknown) {
     c.status(404);
@@ -42,13 +46,15 @@ export async function getActiveRuleset(
   const userId = c.req.param('userId');
   const gameId = c.req.param('gameId');
 
+  const userIdNum = parseInt(userId);
+
   try {
     // Get the active ruleset for the user and game
-    const activeRuleset = await api.getActiveRuleset(userId, gameId);
+    const activeRuleset = await api.getActiveRuleset(userIdNum, gameId);
 
     // Get the specific ruleset using the rulesetId of the active ruleset
     const ruleset = await api.getRuleset(
-      userId,
+      userIdNum,
       gameId,
       activeRuleset.rulesetId
     );
@@ -68,9 +74,11 @@ export async function updateActiveRuleset(
   const gameId = c.req.param('gameId');
   const { rulesetId } = (await c.req.json()) as { rulesetId: string };
 
+  const userIdNum = parseInt(userId);
+
   try {
     const updatedActiveRuleset = await api.updateActiveRuleset(
-      userId,
+      userIdNum,
       gameId,
       rulesetId
     );
@@ -89,8 +97,10 @@ export async function createRuleset(
   const gameId = c.req.param('gameId');
   const { name, rules } = (await c.req.json()) as { name: string; rules: any };
 
+  const userIdNum = parseInt(userId);
+
   try {
-    const newRuleset = await api.createRuleset(userId, gameId, name, rules);
+    const newRuleset = await api.createRuleset(userIdNum, gameId, name, rules);
     return c.json(newRuleset);
   } catch (error: unknown) {
     c.status(400);
@@ -106,8 +116,10 @@ export async function deleteRuleset(
   const gameId = c.req.param('gameId');
   const rulesetId = c.req.param('rulesetId');
 
+  const userIdNum = parseInt(userId);
+
   try {
-    await api.deleteRuleset(userId, gameId, rulesetId);
+    await api.deleteRuleset(userIdNum, gameId, rulesetId);
     return c.json({ message: 'Ruleset deleted successfully' });
   } catch (error: unknown) {
     c.status(404);

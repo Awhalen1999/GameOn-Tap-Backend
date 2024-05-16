@@ -3,7 +3,7 @@
 import { Input } from 'hono/types';
 
 export type Email = string;
-export type UserId = string;
+export type UserId = number;
 export type GameId = string;
 export type RulesetId = string;
 

@@ -1,10 +1,10 @@
 import * as data from '../data/rulesets';
 import * as activeData from '../data/active-rulesets';
 
-const DEFAULT_ID = '0';
+const DEFAULT_ID = 0;
 
 // API function to get all rulesets for a specific game and user
-export async function getRulesets(userId: string, gameId: string) {
+export async function getRulesets(userId: number, gameId: string) {
   const rulesets: any[] = await data.getRulesets();
   const userGameRulesets = rulesets.filter(
     (ruleset) =>
@@ -21,7 +21,7 @@ export async function getRulesets(userId: string, gameId: string) {
 
 // API function to get a specific ruleset for a specific game and user
 export async function getRuleset(
-  userId: string,
+  userId: number,
   gameId: string,
   rulesetId: string
 ) {
@@ -43,7 +43,7 @@ export async function getRuleset(
 }
 
 // API function to get the active ruleset for a specific user and game
-export async function getActiveRuleset(userId: string, gameId: string) {
+export async function getActiveRuleset(userId: number, gameId: string) {
   const activeRulesets = await activeData.getActiveRulesets();
 
   const activeRuleset = activeRulesets.find(
@@ -61,7 +61,7 @@ export async function getActiveRuleset(userId: string, gameId: string) {
 
 // API function to update the active ruleset for a specific user and game
 export async function updateActiveRuleset(
-  userId: string,
+  userId: number,
   gameId: string,
   rulesetId: string
 ) {
@@ -87,7 +87,7 @@ export async function updateActiveRuleset(
 
 // API function to create a new ruleset for a specific user and game
 export async function createRuleset(
-  userId: string,
+  userId: number,
   gameId: string,
   name: string,
   rules: any
@@ -123,7 +123,7 @@ export async function createRuleset(
 
 // API function to delete a specific ruleset for a specific user and game
 export async function deleteRuleset(
-  userId: string,
+  userId: number,
   gameId: string,
   rulesetId: string
 ) {

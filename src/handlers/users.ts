@@ -7,8 +7,10 @@ import { LoginInput, SignupInput } from '../types';
 export async function getUser(c: Context<Env, '/:userId'>) {
   const userId = c.req.param('userId');
 
+  const userIdNum = parseInt(userId);
+
   try {
-    const user = await api.getUser(userId);
+    const user = await api.getUser(userIdNum);
     return c.json(user);
   } catch (error: unknown) {
     c.status(404);

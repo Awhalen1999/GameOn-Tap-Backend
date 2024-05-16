@@ -3,7 +3,7 @@ import { Email } from '../types';
 import { v4 as uuidv4 } from 'uuid';
 
 // Existing function to get a specific user by its ID
-export async function getUser(userId: string) {
+export async function getUser(userId: number) {
   const users = await data.getUsers();
   const user = users.find((user) => user.id === userId);
 
@@ -49,7 +49,7 @@ export async function signupUser(
     const highestId = Math.max(...users.map((user) => Number(user.id)));
 
     // Increment the highest id to get the id for the new user
-    const newId = String(highestId + 1);
+    const newId = highestId + 1;
 
     const newUser = await data.addUser({
       id: newId,
