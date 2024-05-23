@@ -1,11 +1,9 @@
-//todo: set user id to number
-
 import { Input } from 'hono/types';
 
 export type Email = string;
 export type UserId = number;
 export type GameId = string;
-export type RulesetId = string;
+export type RulesetId = number;
 
 export interface Game {
   id: GameId;

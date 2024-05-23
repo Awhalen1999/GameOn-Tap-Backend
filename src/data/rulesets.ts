@@ -2,7 +2,7 @@ import { Ruleset } from '../types';
 
 let rulesets: Ruleset[] = [
   {
-    id: '0',
+    id: 0,
     gameId: 'KingsCup',
     userId: 0,
     name: 'Default Kings Cup Ruleset',
@@ -95,7 +95,7 @@ let rulesets: Ruleset[] = [
     },
   },
   {
-    id: '0',
+    id: 0,
     gameId: 'RideTheBus',
     userId: 0,
     name: 'Default Ride The Bus Ruleset',
@@ -121,7 +121,7 @@ let rulesets: Ruleset[] = [
     },
   },
   {
-    id: '0',
+    id: 0,
     gameId: 'Snap',
     userId: 0,
     name: 'Default Snap Ruleset',
@@ -141,7 +141,7 @@ let rulesets: Ruleset[] = [
     },
   },
   {
-    id: '0',
+    id: 0,
     gameId: 'Trivia',
     userId: 0,
     name: 'Default Trivia Ruleset',
@@ -166,7 +166,7 @@ let rulesets: Ruleset[] = [
     },
   },
   {
-    id: '0',
+    id: 0,
     gameId: 'PromptDash',
     userId: 0,
     name: 'Default Prompt Dash Ruleset',
@@ -180,7 +180,7 @@ let rulesets: Ruleset[] = [
     },
   },
   {
-    id: '0',
+    id: 0,
     gameId: 'DiceRoll',
     userId: 0,
     name: 'Default Dice Roll Ruleset',
@@ -249,7 +249,7 @@ let rulesets: Ruleset[] = [
     },
   },
   {
-    id: '0',
+    id: 0,
     gameId: 'DrinkRoulette',
     userId: 0,
     name: 'Default Drink Roulette Ruleset',
@@ -320,7 +320,7 @@ let rulesets: Ruleset[] = [
     },
   },
   {
-    id: '0',
+    id: 0,
     gameId: 'BountyBlast',
     userId: 0,
     name: 'Default Bounty Blast Ruleset',
@@ -345,7 +345,7 @@ let rulesets: Ruleset[] = [
   },
   //test example
   {
-    id: '1',
+    id: 1,
     gameId: 'KingsCup',
     userId: 1,
     name: 'Test Example',

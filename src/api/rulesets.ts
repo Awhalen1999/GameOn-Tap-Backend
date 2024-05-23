@@ -23,7 +23,7 @@ export async function getRulesets(userId: number, gameId: string) {
 export async function getRuleset(
   userId: number,
   gameId: string,
-  rulesetId: string
+  rulesetId: number
 ) {
   const rulesets: any[] = await data.getRulesets();
   const userGameRuleset = rulesets.find(
@@ -63,7 +63,7 @@ export async function getActiveRuleset(userId: number, gameId: string) {
 export async function updateActiveRuleset(
   userId: number,
   gameId: string,
-  rulesetId: string
+  rulesetId: number
 ) {
   // Get the active rulesets data
   const activeRulesets = await activeData.getActiveRulesets();
@@ -105,7 +105,7 @@ export async function createRuleset(
       : 0;
 
   // Increment the highest id to get the id for the new ruleset
-  const newId = String(highestId + 1);
+  const newId = highestId + 1;
 
   const newRuleset = {
     id: newId,
@@ -125,7 +125,7 @@ export async function createRuleset(
 export async function deleteRuleset(
   userId: number,
   gameId: string,
-  rulesetId: string
+  rulesetId: number
 ) {
   const rulesets: any[] = await data.getRulesets();
   const userGameRulesetIndex = rulesets.findIndex(

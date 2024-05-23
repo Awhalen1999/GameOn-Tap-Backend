@@ -29,9 +29,10 @@ export async function getGameRuleset(
   const rulesetId = c.req.param('rulesetId');
 
   const userIdNum = parseInt(userId);
+  const rulesetIdNum = parseInt(rulesetId);
 
   try {
-    const ruleset = await api.getRuleset(userIdNum, gameId, rulesetId);
+    const ruleset = await api.getRuleset(userIdNum, gameId, rulesetIdNum);
     return c.json(ruleset);
   } catch (error: unknown) {
     c.status(404);
@@ -75,12 +76,13 @@ export async function updateActiveRuleset(
   const { rulesetId } = (await c.req.json()) as { rulesetId: string };
 
   const userIdNum = parseInt(userId);
+  const rulesetIdNum = parseInt(rulesetId);
 
   try {
     const updatedActiveRuleset = await api.updateActiveRuleset(
       userIdNum,
       gameId,
-      rulesetId
+      rulesetIdNum
     );
     return c.json(updatedActiveRuleset);
   } catch (error: unknown) {
@@ -117,9 +119,10 @@ export async function deleteRuleset(
   const rulesetId = c.req.param('rulesetId');
 
   const userIdNum = parseInt(userId);
+  const rulesetIdNum = parseInt(rulesetId);
 
   try {
-    await api.deleteRuleset(userIdNum, gameId, rulesetId);
+    await api.deleteRuleset(userIdNum, gameId, rulesetIdNum);
     return c.json({ message: 'Ruleset deleted successfully' });
   } catch (error: unknown) {
     c.status(404);
