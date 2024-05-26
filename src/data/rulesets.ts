@@ -1,4 +1,5 @@
-import { Ruleset } from '../types';
+import { Game, Ruleset, User } from '../types';
+import db from './db';
 
 let rulesets: Ruleset[] = [
   {
@@ -370,14 +371,24 @@ let rulesets: Ruleset[] = [
   },
 ];
 
-export async function getRulesets(): Promise<Ruleset[]> {
+export async function getRulesets(
+  userId: User['id'],
+  gameId: Game['id']
+): Promise<Ruleset[]> {
+  const results =
+    (await db`select * from rulesets where gameId = ${gameId} and userId = ${userId} or userId = 0`) as Ruleset[];
+
   return rulesets;
 }
 
 export async function addRuleset(ruleset: Ruleset): Promise<void> {
+  const results = (await db`select * from rulesets`) as Ruleset[];
+
   rulesets.push(ruleset);
 }
 
 export async function saveRulesets(newRulesets: Ruleset[]): Promise<void> {
+  const results = (await db`select * from rulesets`) as Ruleset[];
+
   rulesets = newRulesets;
 }

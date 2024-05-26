@@ -5,19 +5,16 @@ const DEFAULT_ID = 0;
 
 // API function to get all rulesets for a specific game and user
 export async function getRulesets(userId: number, gameId: string) {
-  const rulesets: any[] = await data.getRulesets();
-  const userGameRulesets = rulesets.filter(
-    (ruleset) =>
-      ruleset.gameId === gameId &&
-      (ruleset.userId === DEFAULT_ID || ruleset.userId === userId)
-  );
+  const rulesets: any[] = await data.getRulesets(userId, gameId);
 
-  if (userGameRulesets.length > 0) {
-    return userGameRulesets;
+  if (rulesets.length > 0) {
+    return rulesets;
   } else {
     throw new Error('No rulesets found for this user and game');
   }
 }
+
+// getRulesets(1, 'KingsCup').then((res) => console.log(res));
 
 // API function to get a specific ruleset for a specific game and user
 export async function getRuleset(

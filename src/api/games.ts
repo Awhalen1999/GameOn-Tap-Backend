@@ -1,4 +1,5 @@
 import * as data from '../data/games';
+import { Game } from '../types';
 
 // API function to get all games
 export async function getGames() {
@@ -6,9 +7,8 @@ export async function getGames() {
 }
 
 // API function to get a specific game by its ID
-export async function getGame(gameId: string) {
-  const games = await data.getGames();
-  const game = games.find((game) => game.id === gameId);
+export async function getGame(gameId: Game['id']) {
+  const game = await data.getGame(gameId);
 
   if (game) {
     return game;

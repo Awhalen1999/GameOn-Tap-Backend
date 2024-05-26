@@ -1,4 +1,5 @@
 import { ActiveRuleset } from '../types';
+import db from './db';
 
 const activeRulesets: ActiveRuleset[] = [
   { userId: 1, gameId: 'KingsCup', rulesetId: 0 },
@@ -13,5 +14,7 @@ const activeRulesets: ActiveRuleset[] = [
 ];
 
 export async function getActiveRulesets(): Promise<ActiveRuleset[]> {
+  const results = (await db`select * from activeRulesets`) as ActiveRuleset[];
+
   return activeRulesets;
 }
