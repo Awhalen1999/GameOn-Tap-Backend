@@ -33,10 +33,11 @@ export async function loginUser(c: Context<Env, '/login'>) {
 
 // Handler function to signup a new user
 export async function signupUser(c: Context<Env, '/signup'>) {
-  const { username, email, password } = (await c.req.json()) as SignupInput;
+  const { username, email, password, theme } =
+    (await c.req.json()) as SignupInput;
 
   try {
-    const user = await api.signupUser(username, email, password);
+    const user = await api.signupUser(username, email, password, theme);
     return c.json(user);
   } catch (error: unknown) {
     c.status(400);

@@ -30,7 +30,6 @@ export interface User {
   email: Email;
   password: string;
   theme: string;
-  // theme: 'dark' | 'light';
 }
 
 export interface LoginInput {
@@ -42,6 +41,7 @@ export interface SignupInput {
   username: string;
   email: Email;
   password: string;
+  theme: string;
 }
 
 export interface UserWithoutPassword {
