@@ -1,14 +1,15 @@
-import * as data from '../data/users';
+import db from '../data/db';
 import { Email } from '../types';
-import { v4 as uuidv4 } from 'uuid';
 
 // Existing function to get a specific user by its ID
 export async function getUser(userId: number) {
-  const users = await data.getUsers();
-  const user = users.find((user) => user.id === userId);
-
-  if (user) {
-    return user;
+  const users = await db`
+    SELECT *
+    FROM users
+    WHERE id = ${userId}
+  `;
+  if (users.length > 0) {
+    return users[0];
   } else {
     throw new Error('User not found');
   }
@@ -16,13 +17,13 @@ export async function getUser(userId: number) {
 
 // API function to login a user
 export async function loginUser(email: Email, password: string) {
-  const users = await data.getUsers();
-  const user = users.find(
-    (user) => user.email === email && user.password === password
-  );
-
-  if (user) {
-    return user;
+  const users = await db`
+    SELECT *
+    FROM users
+    WHERE email = ${email} AND password = ${password}
+  `;
+  if (users.length > 0) {
+    return users[0];
   } else {
     throw new Error('Invalid email or password');
   }
@@ -34,30 +35,28 @@ export async function signupUser(
   email: Email,
   password: string
 ) {
-  const users = await data.getUsers();
-  const existingUserByEmail = users.find((user) => user.email === email);
-  const existingUserByUsername = users.find(
-    (user) => user.username === username
-  );
-
-  if (existingUserByEmail) {
+  const existingUserByEmail = await db`
+    SELECT *
+    FROM users
+    WHERE email = ${email}
+  `;
+  const existingUserByUsername = await db`
+    SELECT *
+    FROM users
+    WHERE username = ${username}
+  `;
+  if (existingUserByEmail.length > 0) {
     throw new Error('Email already in use');
-  } else if (existingUserByUsername) {
+  } else if (existingUserByUsername.length > 0) {
     throw new Error('Username already in use');
   } else {
-    // Find the highest id
-    const highestId = Math.max(...users.map((user) => Number(user.id)));
-
-    // Increment the highest id to get the id for the new user
-    const newId = highestId + 1;
-
-    const newUser = await data.addUser({
-      id: newId,
-      username,
-      email,
-      password,
-      theme: '',
-    });
-    return newUser;
+    const newUser = await db`
+      INSERT INTO users
+        (username, email, password)
+      VALUES
+        (${username}, ${email}, ${password})
+      RETURNING *
+    `;
+    return newUser[0];
   }
 }

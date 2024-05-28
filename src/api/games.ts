@@ -1,17 +1,24 @@
-import * as data from '../data/games';
+import db from '../data/db';
 import { Game } from '../types';
 
 // API function to get all games
 export async function getGames() {
-  return await data.getGames();
+  const games = await db`
+    SELECT *
+    FROM games
+  `;
+  return games;
 }
 
 // API function to get a specific game by its ID
 export async function getGame(gameId: Game['id']) {
-  const game = await data.getGame(gameId);
-
-  if (game) {
-    return game;
+  const games = await db`
+    SELECT *
+    FROM games
+    WHERE id = ${gameId}
+  `;
+  if (games.length > 0) {
+    return games[0];
   } else {
     throw new Error('Game not found');
   }

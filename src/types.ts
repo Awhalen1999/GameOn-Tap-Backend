@@ -44,27 +44,9 @@ export interface SignupInput {
   password: string;
 }
 
-/**
- * User
- * id | email | password
- * 1 | bob@example.com | 1234
- */
-
-/**
- * Game
- * id | name
- * 0 | kings cup
- */
-
-/**
- * Ruleset
- * id | gameId | userId | name | rules
- * 0 | 0 | 0 | default | []
- * 1 | 0 | 1 |  awesome rules | []
- */
-
-/**
- * Active Rulesets
- * userId | gameId | rulesetId
- * 1 | 0 | 1
- */
+export interface UserWithoutPassword {
+  id: number;
+  email: string;
+  username: string;
+  theme: string;
+}
