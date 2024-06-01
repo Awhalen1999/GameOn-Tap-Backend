@@ -1,3 +1,5 @@
+//todo: add active rulesets to db
+
 import { ActiveRuleset } from '../types';
 import db from './db';
 
