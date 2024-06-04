@@ -4,10 +4,10 @@ import * as api from '../api/users';
 import { LoginInput, SignupInput } from '../types';
 
 // Handler function to get a specific user by its ID
-export async function getUser(c: Context<Env, '/:userId'>) {
-  const userId = c.req.param('userId');
+export async function getUser(c: Context<Env, '/:user_id'>) {
+  const user_id = c.req.param('user_id');
 
-  const userIdNum = parseInt(userId);
+  const userIdNum = parseInt(user_id);
 
   try {
     const user = await api.getUser(userIdNum);

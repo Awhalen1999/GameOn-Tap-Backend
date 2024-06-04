@@ -1,13 +1,12 @@
 import db from '../data/db';
-import { Email } from '../types';
 
 // Existing function to get a specific user by its ID
-export async function getUser(userId: number) {
-  console.log('Getting user with ID:', userId);
+export async function getUser(user_id: number) {
+  console.log('Getting user with ID:', user_id);
   const users = await db`
     SELECT *
     FROM users
-    WHERE id = ${userId}
+    WHERE id = ${user_id}
   `;
   if (users.length > 0) {
     console.log('User found:', users[0]);
@@ -19,7 +18,7 @@ export async function getUser(userId: number) {
 }
 
 // API function to login a user
-export async function loginUser(email: Email, password: string) {
+export async function loginUser(email: string, password: string) {
   console.log('Logging in user with email:', email);
   const users = await db`
     SELECT *
@@ -38,7 +37,7 @@ export async function loginUser(email: Email, password: string) {
 // API function to signup a new user
 export async function signupUser(
   username: string,
-  email: Email,
+  email: string,
   password: string,
   theme: string
 ) {

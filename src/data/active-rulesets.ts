@@ -6,15 +6,15 @@ import db from './db';
 export async function getActiveRulesets(): Promise<ActiveRuleset[]> {
   const activeRulesets = await db`
     SELECT
-      userId,
-      gameId,
-      rulesetId
-    FROM activeRulesets
+      user_id,
+      game_id,
+      ruleset_id
+    FROM active_rulesets
   `;
   return activeRulesets.map((activeRuleset) => ({
-    userId: activeRuleset.userId as number,
-    gameId: activeRuleset.gameId as string,
-    rulesetId: activeRuleset.rulesetId as number,
+    user_id: activeRuleset.user_id as number,
+    game_id: activeRuleset.game_id as string,
+    ruleset_id: activeRuleset.ruleset_id as number,
   }));
 }
 
@@ -22,9 +22,9 @@ export async function setActiveRuleset(
   activeRuleset: ActiveRuleset
 ): Promise<void> {
   await db`
-    UPDATE activeRulesets
-    SET rulesetId = ${activeRuleset.rulesetId}
-    WHERE userId = ${activeRuleset.userId} AND gameId = ${activeRuleset.gameId}
+    UPDATE active_rulesets
+    SET ruleset_id = ${activeRuleset.ruleset_id}
+    WHERE user_id = ${activeRuleset.user_id} AND game_id = ${activeRuleset.game_id}
   `;
 }
 
@@ -32,15 +32,15 @@ export async function addActiveRuleset(
   activeRuleset: ActiveRuleset
 ): Promise<ActiveRuleset> {
   const activeRulesets = await db`
-    INSERT INTO activeRulesets
-      (userId, gameId, rulesetId)
+    INSERT INTO active_rulesets
+      (user_id, game_id, ruleset_id)
     VALUES
-      (${activeRuleset.userId}, ${activeRuleset.gameId}, ${activeRuleset.rulesetId})
-    RETURNING userId, gameId, rulesetId
+      (${activeRuleset.user_id}, ${activeRuleset.game_id}, ${activeRuleset.ruleset_id})
+    RETURNING user_id, game_id, ruleset_id
   `;
   return {
-    userId: activeRulesets[0].userId as number,
-    gameId: activeRulesets[0].gameId as string,
-    rulesetId: activeRulesets[0].rulesetId as number,
+    user_id: activeRulesets[0].user_id as number,
+    game_id: activeRulesets[0].game_id as string,
+    ruleset_id: activeRulesets[0].ruleset_id as number,
   };
 }

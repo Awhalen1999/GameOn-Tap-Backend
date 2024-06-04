@@ -4,15 +4,15 @@ import * as api from '../api/rulesets';
 
 // Handler function to get all rulesets for a specific game and user
 export async function getGameRulesets(
-  c: Context<Env, '/:userId/:gameId/rulesets', BlankInput>
+  c: Context<Env, '/:user_id/:game_id/rulesets', BlankInput>
 ) {
-  const userId = c.req.param('userId');
-  const gameId = c.req.param('gameId');
+  const user_id = c.req.param('user_id');
+  const game_id = c.req.param('game_id');
 
-  const userIdNum = parseInt(userId);
+  const user_id_num = parseInt(user_id);
 
   try {
-    const rulesets = await api.getRulesets(userIdNum, gameId);
+    const rulesets = await api.getRulesets(user_id_num, game_id);
     return c.json(rulesets);
   } catch (error: unknown) {
     c.status(404);
@@ -22,17 +22,17 @@ export async function getGameRulesets(
 
 // Handler function to get a specific ruleset for a specific game and user
 export async function getGameRuleset(
-  c: Context<Env, '/:userId/:gameId/rulesets/:rulesetId', BlankInput>
+  c: Context<Env, '/:user_id/:game_id/rulesets/:ruleset_id', BlankInput>
 ) {
-  const userId = c.req.param('userId');
-  const gameId = c.req.param('gameId');
-  const rulesetId = c.req.param('rulesetId');
+  const user_id = c.req.param('user_id');
+  const game_id = c.req.param('game_id');
+  const ruleset_id = c.req.param('ruleset_id');
 
-  const userIdNum = parseInt(userId);
-  const rulesetIdNum = parseInt(rulesetId);
+  const user_id_num = parseInt(user_id);
+  const ruleset_id_num = parseInt(ruleset_id);
 
   try {
-    const ruleset = await api.getRuleset(userIdNum, gameId, rulesetIdNum);
+    const ruleset = await api.getRuleset(user_id_num, game_id, ruleset_id_num);
     return c.json(ruleset);
   } catch (error: unknown) {
     c.status(404);
@@ -42,22 +42,22 @@ export async function getGameRuleset(
 
 // Handler function to get the active ruleset for a specific user and game
 export async function getActiveRuleset(
-  c: Context<Env, '/:userId/:gameId/activeRuleset', BlankInput>
+  c: Context<Env, '/:user_id/:game_id/active_ruleset', BlankInput>
 ) {
-  const userId = c.req.param('userId');
-  const gameId = c.req.param('gameId');
+  const user_id = c.req.param('user_id');
+  const game_id = c.req.param('game_id');
 
-  const userIdNum = parseInt(userId);
+  const user_id_num = parseInt(user_id);
 
   try {
     // Get the active ruleset for the user and game
-    const activeRuleset = await api.getActiveRuleset(userIdNum, gameId);
+    const active_ruleset = await api.getActiveRuleset(user_id_num, game_id);
 
     // Get the specific ruleset using the rulesetId of the active ruleset
     const ruleset = await api.getRuleset(
-      userIdNum,
-      gameId,
-      activeRuleset.rulesetId
+      user_id_num,
+      game_id,
+      active_ruleset.ruleset_id
     );
 
     return c.json(ruleset);
@@ -69,22 +69,22 @@ export async function getActiveRuleset(
 
 // Handler function to update the active ruleset for a specific user and game
 export async function updateActiveRuleset(
-  c: Context<Env, '/:userId/:gameId/activeRuleset'>
+  c: Context<Env, '/:user_id/:game_id/active_ruleset'>
 ) {
-  const userId = c.req.param('userId');
-  const gameId = c.req.param('gameId');
-  const { rulesetId } = (await c.req.json()) as { rulesetId: string };
+  const user_id = c.req.param('user_id');
+  const game_id = c.req.param('game_id');
+  const { ruleset_id } = (await c.req.json()) as { ruleset_id: string };
 
-  const userIdNum = parseInt(userId);
-  const rulesetIdNum = parseInt(rulesetId);
+  const user_id_num = parseInt(user_id);
+  const ruleset_id_num = parseInt(ruleset_id);
 
   try {
-    const updatedActiveRuleset = await api.updateActiveRuleset(
-      userIdNum,
-      gameId,
-      rulesetIdNum
+    const updated_active_ruleset = await api.updateActiveRuleset(
+      user_id_num,
+      game_id,
+      ruleset_id_num
     );
-    return c.json(updatedActiveRuleset);
+    return c.json(updated_active_ruleset);
   } catch (error: unknown) {
     c.status(400);
     return c.json({ message: (error as Error).message });
@@ -93,17 +93,22 @@ export async function updateActiveRuleset(
 
 // Handler function to create a new ruleset for a specific user and game
 export async function createRuleset(
-  c: Context<Env, '/:userId/:gameId/rulesets'>
+  c: Context<Env, '/:user_id/:game_id/rulesets'>
 ) {
-  const userId = c.req.param('userId');
-  const gameId = c.req.param('gameId');
+  const user_id = c.req.param('user_id');
+  const game_id = c.req.param('game_id');
   const { name, rules } = (await c.req.json()) as { name: string; rules: any };
 
-  const userIdNum = parseInt(userId);
+  const user_id_num = parseInt(user_id);
 
   try {
-    const newRuleset = await api.createRuleset(userIdNum, gameId, name, rules);
-    return c.json(newRuleset);
+    const new_ruleset = await api.createRuleset(
+      user_id_num,
+      game_id,
+      name,
+      rules
+    );
+    return c.json(new_ruleset);
   } catch (error: unknown) {
     c.status(400);
     return c.json({ message: (error as Error).message });
@@ -112,17 +117,17 @@ export async function createRuleset(
 
 // Handler function to delete a specific ruleset for a specific user and game
 export async function deleteRuleset(
-  c: Context<Env, '/:userId/:gameId/rulesets/:rulesetId', BlankInput>
+  c: Context<Env, '/:user_id/:game_id/rulesets/:ruleset_id', BlankInput>
 ) {
-  const userId = c.req.param('userId');
-  const gameId = c.req.param('gameId');
-  const rulesetId = c.req.param('rulesetId');
+  const user_id = c.req.param('user_id');
+  const game_id = c.req.param('game_id');
+  const ruleset_id = c.req.param('ruleset_id');
 
-  const userIdNum = parseInt(userId);
-  const rulesetIdNum = parseInt(rulesetId);
+  const user_id_num = parseInt(user_id);
+  const ruleset_id_num = parseInt(ruleset_id);
 
   try {
-    await api.deleteRuleset(userIdNum, gameId, rulesetIdNum);
+    await api.deleteRuleset(user_id_num, game_id, ruleset_id_num);
     return c.json({ message: 'Ruleset deleted successfully' });
   } catch (error: unknown) {
     c.status(404);

@@ -1,51 +1,46 @@
 import { Input } from 'hono/types';
 
-export type Email = string;
-export type UserId = number;
-export type GameId = string;
-export type RulesetId = number;
-
 export interface Game {
-  id: GameId;
+  game_id: string;
   name: string;
 }
 
 export interface Ruleset {
-  id: RulesetId;
-  gameId: string;
-  userId: UserId | null;
+  ruleset_id: number;
+  game_id: string;
+  user_id: number;
   name: string;
   rules: any;
 }
 
 export interface ActiveRuleset {
-  userId: UserId;
-  gameId: GameId;
-  rulesetId: RulesetId;
+  user_id: number;
+  game_id: string;
+  ruleset_id: number;
 }
 
 export interface User {
-  id: UserId;
+  user_id: number;
   username: string;
-  email: Email;
+  email: string;
   password: string;
   theme: string;
 }
 
 export interface LoginInput {
-  email: Email;
+  email: string;
   password: string;
 }
 
 export interface SignupInput {
   username: string;
-  email: Email;
+  email: string;
   password: string;
   theme: string;
 }
 
 export interface UserWithoutPassword {
-  id: number;
+  user_id: number;
   email: string;
   username: string;
   theme: string;

@@ -11,11 +11,11 @@ export async function getGames() {
 }
 
 // API function to get a specific game by its ID
-export async function getGame(gameId: Game['id']) {
+export async function getGame(game_id: Game['game_id']) {
   const games = await db`
     SELECT *
     FROM games
-    WHERE id = ${gameId}
+    WHERE game_id = ${game_id}
   `;
   if (games.length > 0) {
     return games[0];

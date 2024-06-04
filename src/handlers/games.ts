@@ -9,11 +9,11 @@ export async function getAllGames(c: Context<Env, '/', BlankInput>) {
 }
 
 // Handler function to get a specific game by its ID
-export async function getGame(c: Context<Env, '/:gameid', BlankInput>) {
-  const gameId = c.req.param('gameid');
+export async function getGame(c: Context<Env, '/:game_id', BlankInput>) {
+  const game_id = c.req.param('game_id');
 
   try {
-    const game = await api.getGame(gameId);
+    const game = await api.getGame(game_id);
     return c.json(game);
   } catch (error: unknown) {
     c.status(404);
