@@ -7,6 +7,6 @@ const GamesRouter = new Hono();
 GamesRouter.get('/', gameHandlers.getAllGames);
 
 // Endpoint to get a specific game by ID
-GamesRouter.get('/:gameid', gameHandlers.getGame);
+GamesRouter.get('/:game_id', gameHandlers.getGame);
 
 export default GamesRouter;
