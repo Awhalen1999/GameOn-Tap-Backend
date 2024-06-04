@@ -1,34 +1,16 @@
 import db from '../data/db';
 
-// API function to get all rulesets for a specific game and user
+// API function to get all rulesets for a specific game and user, including default rulesets
 export async function getRulesets(user_id: number, game_id: string) {
   const rulesets = await db`
     SELECT *
     FROM rulesets
-    WHERE game_id = ${game_id} AND user_id = ${user_id}
+    WHERE game_id = ${game_id} AND (user_id = ${user_id} OR user_id = 1)
   `;
   if (rulesets.length > 0) {
     return rulesets;
   } else {
     throw new Error('No rulesets found for this user and game');
-  }
-}
-
-// New function to copy default rulesets to new user
-export async function copyDefaultRulesets(new_user_id: number): Promise<void> {
-  const defaultRulesets = await db`
-    SELECT game_id, name, rules
-    FROM rulesets
-    WHERE user_id = 1
-  `;
-
-  for (const ruleset of defaultRulesets) {
-    await db`
-      INSERT INTO rulesets
-        (user_id, game_id, name, rules)
-      VALUES
-        (${new_user_id}, ${ruleset.game_id}, ${ruleset.name}, ${ruleset.rules})
-    `;
   }
 }
 
