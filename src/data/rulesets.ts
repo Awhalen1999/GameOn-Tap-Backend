@@ -1,6 +1,7 @@
 import db from './db';
-import { Ruleset } from '../types';
+import { Ruleset, NewRuleset } from '../types';
 
+// Function to get all rulesets for a specific game and user
 export async function getRulesets(
   user_id: number,
   game_id: string
@@ -24,6 +25,7 @@ export async function getRulesets(
   }));
 }
 
+// Function to get a specific ruleset for a specific game and user
 export async function getRuleset(
   user_id: number,
   game_id: string,
@@ -49,8 +51,39 @@ export async function getRuleset(
   }
 }
 
-export async function addRuleset(ruleset: Ruleset): Promise<Ruleset> {
-  const rulesets = await db`
+// Function to get the active ruleset for a specific user and game
+export async function getActiveRuleset(
+  user_id: number,
+  game_id: string
+): Promise<number> {
+  const activeRuleset = await db`
+    SELECT ruleset_id
+    FROM active_rulesets
+    WHERE user_id = ${user_id} AND game_id = ${game_id}
+  `;
+  if (activeRuleset.length > 0) {
+    return activeRuleset[0].ruleset_id as number;
+  } else {
+    throw new Error('No active ruleset found for this user and game');
+  }
+}
+
+// Function to update the active ruleset for a specific user and game
+export async function updateActiveRuleset(
+  user_id: number,
+  game_id: string,
+  ruleset_id: number
+): Promise<void> {
+  await db`
+    UPDATE active_rulesets
+    SET ruleset_id = ${ruleset_id}
+    WHERE user_id = ${user_id} AND game_id = ${game_id}
+  `;
+}
+
+// Function to create a new ruleset for a specific user and game
+export async function createRuleset(ruleset: NewRuleset): Promise<Ruleset> {
+  const newRuleset = await db`
     INSERT INTO rulesets
       (game_id, user_id, name, rules)
     VALUES
@@ -58,14 +91,15 @@ export async function addRuleset(ruleset: Ruleset): Promise<Ruleset> {
     RETURNING ruleset_id, game_id, user_id, name, rules
   `;
   return {
-    ruleset_id: rulesets[0].ruleset_id as number,
-    game_id: rulesets[0].game_id as string,
-    user_id: rulesets[0].user_id as number,
-    name: rulesets[0].name as string,
-    rules: rulesets[0].rules as any,
+    ruleset_id: newRuleset[0].ruleset_id as number,
+    game_id: newRuleset[0].game_id as string,
+    user_id: newRuleset[0].user_id as number,
+    name: newRuleset[0].name as string,
+    rules: newRuleset[0].rules as any,
   };
 }
 
+// Function to delete a specific ruleset for a specific user and game
 export async function deleteRuleset(
   user_id: number,
   game_id: string,

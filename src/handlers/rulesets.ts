@@ -40,7 +40,7 @@ export async function getGameRuleset(
   }
 }
 
-// Handler function to get the active ruleset for a specific user and game
+// Handler function to get the active ruleset ID for a specific user and game
 export async function getActiveRuleset(
   c: Context<Env, '/:user_id/:game_id/active_ruleset', BlankInput>
 ) {
@@ -50,17 +50,10 @@ export async function getActiveRuleset(
   const user_id_num = parseInt(user_id);
 
   try {
-    // Get the active ruleset for the user and game
+    // Get the active ruleset ID for the user and game
     const active_ruleset = await api.getActiveRuleset(user_id_num, game_id);
 
-    // Get the specific ruleset using the rulesetId of the active ruleset
-    const ruleset = await api.getRuleset(
-      user_id_num,
-      game_id,
-      active_ruleset.ruleset_id
-    );
-
-    return c.json(ruleset);
+    return c.json({ ruleset_id: active_ruleset.ruleset_id });
   } catch (error: unknown) {
     c.status(404);
     return c.json({ message: (error as Error).message });
@@ -79,12 +72,8 @@ export async function updateActiveRuleset(
   const ruleset_id_num = parseInt(ruleset_id);
 
   try {
-    const updated_active_ruleset = await api.updateActiveRuleset(
-      user_id_num,
-      game_id,
-      ruleset_id_num
-    );
-    return c.json(updated_active_ruleset);
+    await api.updateActiveRuleset(user_id_num, game_id, ruleset_id_num);
+    return c.json({ message: 'Active ruleset updated successfully' });
   } catch (error: unknown) {
     c.status(400);
     return c.json({ message: (error as Error).message });

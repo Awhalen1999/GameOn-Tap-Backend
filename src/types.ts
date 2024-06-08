@@ -45,3 +45,5 @@ export interface UserWithoutPassword {
   username: string;
   theme: string;
 }
+
+export type NewRuleset = Omit<Ruleset, 'ruleset_id'>;

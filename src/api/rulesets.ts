@@ -1,12 +1,15 @@
-import db from '../data/db';
+import {
+  getRulesets as getRulesetsFromDB,
+  getRuleset as getRulesetFromDB,
+  getActiveRuleset as getActiveRulesetFromDB,
+  updateActiveRuleset as updateActiveRulesetInDB,
+  createRuleset as createRulesetInDB,
+  deleteRuleset as deleteRulesetFromDB,
+} from '../data/rulesets';
 
 // API function to get all rulesets for a specific game and user, including default rulesets
 export async function getRulesets(user_id: number, game_id: string) {
-  const rulesets = await db`
-    SELECT *
-    FROM rulesets
-    WHERE game_id = ${game_id} AND (user_id = ${user_id} OR user_id = 1)
-  `;
+  const rulesets = await getRulesetsFromDB(user_id, game_id);
   if (rulesets.length > 0) {
     return rulesets;
   } else {
@@ -20,13 +23,9 @@ export async function getRuleset(
   game_id: string,
   ruleset_id: number
 ) {
-  const ruleset = await db`
-    SELECT *
-    FROM rulesets
-    WHERE user_id = ${user_id} AND game_id = ${game_id} AND id = ${ruleset_id}
-  `;
-  if (ruleset.length > 0) {
-    return ruleset[0];
+  const ruleset = await getRulesetFromDB(user_id, game_id, ruleset_id);
+  if (ruleset) {
+    return ruleset;
   } else {
     throw new Error(
       'No ruleset found for this user and game with the provided ruleset_id'
@@ -35,14 +34,13 @@ export async function getRuleset(
 }
 
 // API function to get the active ruleset for a specific user and game
-export async function getActiveRuleset(user_id: number, game_id: string) {
-  const activeRuleset = await db`
-    SELECT *
-    FROM active_rulesets
-    WHERE user_id = ${user_id} AND game_id = ${game_id}
-  `;
-  if (activeRuleset.length > 0) {
-    return activeRuleset[0];
+export async function getActiveRuleset(
+  user_id: number,
+  game_id: string
+): Promise<{ ruleset_id: number }> {
+  const ruleset_id = await getActiveRulesetFromDB(user_id, game_id);
+  if (ruleset_id) {
+    return { ruleset_id };
   } else {
     throw new Error('No active ruleset found for this user and game');
   }
@@ -54,17 +52,7 @@ export async function updateActiveRuleset(
   game_id: string,
   ruleset_id: number
 ) {
-  const updatedActiveRuleset = await db`
-    UPDATE active_rulesets
-    SET ruleset_id = ${ruleset_id}
-    WHERE user_id = ${user_id} AND game_id = ${game_id}
-    RETURNING *
-  `;
-  if (updatedActiveRuleset.length > 0) {
-    return updatedActiveRuleset[0];
-  } else {
-    throw new Error('No active ruleset found for this user and game');
-  }
+  await updateActiveRulesetInDB(user_id, game_id, ruleset_id);
 }
 
 // API function to create a new ruleset for a specific user and game
@@ -74,14 +62,8 @@ export async function createRuleset(
   name: string,
   rules: any
 ) {
-  const newRuleset = await db`
-    INSERT INTO rulesets
-      (user_id, game_id, name, rules)
-    VALUES
-      (${user_id}, ${game_id}, ${name}, ${JSON.stringify(rules)})
-    RETURNING *
-  `;
-  return newRuleset[0];
+  const newRuleset = await createRulesetInDB({ user_id, game_id, name, rules });
+  return newRuleset;
 }
 
 // API function to delete a specific ruleset for a specific user and game
@@ -90,16 +72,5 @@ export async function deleteRuleset(
   game_id: string,
   ruleset_id: number
 ) {
-  const deletedRuleset = await db`
-    DELETE FROM rulesets
-    WHERE user_id = ${user_id} AND game_id = ${game_id} AND id = ${ruleset_id}
-    RETURNING *
-  `;
-  if (deletedRuleset.length > 0) {
-    return deletedRuleset[0];
-  } else {
-    throw new Error(
-      'No ruleset found for this user and game with the provided ruleset_id'
-    );
-  }
+  await deleteRulesetFromDB(user_id, game_id, ruleset_id);
 }
