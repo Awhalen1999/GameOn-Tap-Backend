@@ -24,6 +24,31 @@ export async function getRulesets(
   }));
 }
 
+export async function getRuleset(
+  user_id: number,
+  game_id: string,
+  ruleset_id: number
+): Promise<Ruleset> {
+  const rulesets = await db`
+    SELECT *
+    FROM rulesets
+    WHERE user_id = ${user_id} AND game_id = ${game_id} AND ruleset_id = ${ruleset_id}
+  `;
+  if (rulesets.length > 0) {
+    return {
+      ruleset_id: rulesets[0].ruleset_id as number,
+      game_id: rulesets[0].game_id as string,
+      user_id: rulesets[0].user_id as number,
+      name: rulesets[0].name as string,
+      rules: rulesets[0].rules as any,
+    };
+  } else {
+    throw new Error(
+      'No ruleset found for this user and game with the provided ruleset_id'
+    );
+  }
+}
+
 export async function addRuleset(ruleset: Ruleset): Promise<Ruleset> {
   const rulesets = await db`
     INSERT INTO rulesets
