@@ -1,24 +1,28 @@
 import db from './db';
 import { User, UserWithoutPassword } from '../types';
 
-export async function getUsers(): Promise<UserWithoutPassword[]> {
+export async function LoginUser(
+  email: string,
+  password: string
+): Promise<User> {
   const users = await db`
-    SELECT
-      user_id,
-      email,
-      username,
-      theme
-    FROM users
+    SELECT * FROM users
+    WHERE email = ${email} AND password = ${password}
   `;
-  return users.map((user) => ({
-    user_id: user.user_id as number,
-    email: user.email as string,
-    username: user.username as string,
-    theme: user.theme as string,
-  }));
+  if (users.length > 0) {
+    return {
+      user_id: users[0].user_id as number,
+      email: users[0].email as string,
+      username: users[0].username as string,
+      theme: users[0].theme as string,
+      password: users[0].password as string,
+    };
+  } else {
+    throw new Error('Invalid email or password');
+  }
 }
 
-export async function addUser(user: User): Promise<UserWithoutPassword> {
+export async function SignupUser(user: User): Promise<UserWithoutPassword> {
   const users = await db`
     INSERT INTO users
       (email, username, password, theme)

@@ -1,20 +1,10 @@
 import { User } from '../types';
 import {
-  getUser as getUserFromDB,
-  loginUser as loginUserFromDB,
-  signupUser as signupUserFromDB,
-} from './users'; // Make sure to import from the correct file
+  LoginUser as loginUserFromDB,
+  SignupUser as signupUserFromDB,
+} from '../data/users';
 
-export async function getUser(user_id: number): Promise<User> {
-  const user: User | null = await getUserFromDB(user_id);
-  if (user) {
-    return user;
-  } else {
-    throw new Error('User not found');
-  }
-}
-
-export async function loginUser(
+export async function LoginUser(
   email: string,
   password: string
 ): Promise<User> {
@@ -26,7 +16,7 @@ export async function loginUser(
   }
 }
 
-export async function signupUser(
+export async function SignupUser(
   username: string,
   email: string,
   password: string,

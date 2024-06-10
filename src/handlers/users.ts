@@ -3,27 +3,12 @@ import { BlankInput } from 'hono/types';
 import * as api from '../api/users';
 import { LoginInput, SignupInput } from '../types';
 
-// Handler function to get a specific user by its ID
-export async function getUser(c: Context<Env, '/:user_id'>) {
-  const user_id = c.req.param('user_id');
-
-  const userIdNum = parseInt(user_id);
-
-  try {
-    const user = await api.getUser(userIdNum);
-    return c.json(user);
-  } catch (error: unknown) {
-    c.status(404);
-    return c.json({ message: (error as Error).message });
-  }
-}
-
 // Handler function to login a user
 export async function loginUser(c: Context<Env, '/login'>) {
   const { email, password } = (await c.req.json()) as LoginInput;
 
   try {
-    const user = await api.loginUser(email, password);
+    const user = await api.LoginUser(email, password);
     return c.json(user);
   } catch (error: unknown) {
     c.status(401);
@@ -37,7 +22,7 @@ export async function signupUser(c: Context<Env, '/signup'>) {
     (await c.req.json()) as SignupInput;
 
   try {
-    const user = await api.signupUser(username, email, password, theme);
+    const user = await api.SignupUser(username, email, password, theme);
     return c.json(user);
   } catch (error: unknown) {
     c.status(400);
