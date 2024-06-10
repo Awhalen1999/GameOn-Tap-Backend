@@ -14,7 +14,7 @@ export async function getRulesets(
       name,
       rules
     FROM rulesets
-    WHERE user_id = ${user_id} AND game_id = ${game_id}
+    WHERE (user_id = ${user_id} OR user_id = 1) AND game_id = ${game_id}
   `;
   return rulesets.map((ruleset) => ({
     ruleset_id: ruleset.ruleset_id as number,
@@ -34,7 +34,7 @@ export async function getRuleset(
   const rulesets = await db`
     SELECT *
     FROM rulesets
-    WHERE user_id = ${user_id} AND game_id = ${game_id} AND ruleset_id = ${ruleset_id}
+    WHERE (user_id = ${user_id} OR user_id = 1) AND game_id = ${game_id} AND ruleset_id = ${ruleset_id}
   `;
   if (rulesets.length > 0) {
     return {
