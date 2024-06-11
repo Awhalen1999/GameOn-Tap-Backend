@@ -1,11 +1,11 @@
 import { Context, Env } from 'hono';
 import { BlankInput } from 'hono/types';
 import * as api from '../api/users';
-import { LoginInput, SignupInput } from '../types';
+import { SignupUserParameters, LoginInputParameters } from '../data/users';
 
 // Handler function to login a user
 export async function loginUser(c: Context<Env, '/login'>) {
-  const { email, password } = (await c.req.json()) as LoginInput;
+  const { email, password } = (await c.req.json()) as LoginInputParameters;
 
   try {
     const user = await api.LoginUser(email, password);
@@ -19,10 +19,10 @@ export async function loginUser(c: Context<Env, '/login'>) {
 // Handler function to signup a new user
 export async function signupUser(c: Context<Env, '/signup'>) {
   const { username, email, password, theme } =
-    (await c.req.json()) as SignupInput;
+    (await c.req.json()) as SignupUserParameters;
 
   try {
-    const user = await api.SignupUser(username, email, password, theme);
+    const user = await api.SignUpUser(username, email, password, theme);
     return c.json(user);
   } catch (error: unknown) {
     c.status(400);

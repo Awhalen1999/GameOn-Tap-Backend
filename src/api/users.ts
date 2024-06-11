@@ -1,14 +1,14 @@
 import { User } from '../types';
 import {
   LoginUser as loginUserFromDB,
-  SignupUser as signupUserFromDB,
+  SignupUser as signUpUserFromDB,
 } from '../data/users';
 
 export async function LoginUser(
   email: string,
   password: string
 ): Promise<User> {
-  const user: User | null = await loginUserFromDB(email, password);
+  const user: User | null = await loginUserFromDB({ email, password });
   if (user) {
     return user;
   } else {
@@ -16,19 +16,19 @@ export async function LoginUser(
   }
 }
 
-export async function SignupUser(
+export async function SignUpUser(
   username: string,
   email: string,
   password: string,
   theme: string
 ): Promise<User> {
   try {
-    const newUser: User = await signupUserFromDB(
+    const newUser = await signUpUserFromDB({
       username,
       email,
       password,
-      theme
-    );
+      theme,
+    });
     return newUser;
   } catch (error) {
     throw error;

@@ -27,23 +27,9 @@ export interface User {
   theme: string;
 }
 
-export interface LoginInput {
-  email: string;
-  password: string;
-}
-
-export interface SignupInput {
-  username: string;
-  email: string;
-  password: string;
-  theme: string;
-}
-
 export interface UserWithoutPassword {
   user_id: number;
   email: string;
   username: string;
   theme: string;
 }
-
-export type NewRuleset = Omit<Ruleset, 'ruleset_id'>;

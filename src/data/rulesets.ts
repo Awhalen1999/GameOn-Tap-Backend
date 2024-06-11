@@ -1,5 +1,5 @@
 import db from './db';
-import { Ruleset, NewRuleset } from '../types';
+import { Ruleset } from '../types';
 
 // Function to get all rulesets for a specific game and user
 export async function getRulesets(
@@ -82,6 +82,9 @@ export async function updateActiveRuleset(
 }
 
 // Function to create a new ruleset for a specific user and game
+
+export type NewRuleset = Omit<Ruleset, 'ruleset_id'>;
+
 export async function createRuleset(ruleset: NewRuleset): Promise<Ruleset> {
   const newRuleset = await db`
     INSERT INTO rulesets
