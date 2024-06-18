@@ -48,35 +48,28 @@ export async function SignupUser({
     `;
 
       await sql`
-      INSERT INTO active_rulesets
-      (user_id, game_id, ruleset_id)
-      VALUES
-      (${user.user_id}, 'KingsCup', 1),
-      (${user.user_id}, 'DiceRoll', 2)
-      (${user.user_id}, 'DrinkRoulette', 3)
-      (${user.user_id}, 'BountyBlast', 4)
-      (${user.user_id}, 'RideTheBus', 5)
-      (${user.user_id}, 'Snap', 6)
-      (${user.user_id}, 'Trivia', 7)
-      (${user.user_id}, 'PromptDash', 8)`;
+    INSERT INTO active_rulesets
+    (user_id, game_id, ruleset_id)
+    VALUES
+    (${createdUser.user_id}, 'KingsCup', 1),
+    (${createdUser.user_id}, 'DiceRoll', 2),
+    (${createdUser.user_id}, 'DrinkRoulette', 3),
+    (${createdUser.user_id}, 'BountyBlast', 4),
+    (${createdUser.user_id}, 'RideTheBus', 5),
+    (${createdUser.user_id}, 'Snap', 6),
+    (${createdUser.user_id}, 'Trivia', 7),
+    (${createdUser.user_id}, 'PromptDash', 8)
+  `;
 
       return [createdUser];
     });
 
-    const users = await db`
-      INSERT INTO users
-        (email, username, password, theme)
-      VALUES
-        (${user.email}, ${user.username}, ${user.password}, ${user.theme})
-      RETURNING user_id, email, username, theme
-    `;
-
     return {
-      user_id: users[0].user_id as number,
-      email: users[0].email as string,
-      username: users[0].username as string,
-      theme: users[0].theme as string,
-      password: users[0].password as string,
+      user_id: user.user_id as number,
+      email: user.email as string,
+      username: user.username as string,
+      theme: user.theme as string,
+      password: user.password as string,
     };
   }
 }
