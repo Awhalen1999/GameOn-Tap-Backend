@@ -1,3 +1,5 @@
+//.env file import
+
 import postgres from 'postgres';
 
 const sql = postgres({
