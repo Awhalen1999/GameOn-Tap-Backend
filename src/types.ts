@@ -26,10 +26,3 @@ export interface User {
   password: string;
   theme: string;
 }
-
-export interface UserWithoutPassword {
-  user_id: number;
-  email: string;
-  username: string;
-  theme: string;
-}
