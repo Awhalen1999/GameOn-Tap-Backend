@@ -4,10 +4,10 @@ import { User } from '../types';
 //login user
 export type LoginInputParameters = Omit<User, 'user_id' | 'username' | 'theme'>;
 
-export async function LoginUser(user: LoginInputParameters): Promise<User> {
+export async function LoginUser({ email }: { email: string }): Promise<User> {
   const users = await db`
     SELECT * FROM users
-    WHERE email = ${user.email} AND password = ${user.password}
+    WHERE email = ${email}
   `;
   if (users.length > 0) {
     return {
