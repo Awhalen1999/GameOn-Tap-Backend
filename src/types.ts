@@ -1,4 +1,11 @@
-import { Input } from 'hono/types';
+import { Session } from 'hono-sessions';
+import { Env, Input } from 'hono/types';
+
+export interface SessionEnv extends Env {
+  Variables: {
+    session: Session;
+  };
+}
 
 export interface Game {
   game_id: string;

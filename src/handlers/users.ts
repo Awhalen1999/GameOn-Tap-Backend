@@ -1,11 +1,17 @@
 import { Context, Env } from 'hono';
-import { BlankInput } from 'hono/types';
 import * as api from '../api/users';
 import { SignupUserParameters, LoginInputParameters } from '../data/users';
+import { SessionEnv } from '../types';
 
 // Handler function to login a user
-export async function loginUser(c: Context<Env, '/login'>) {
+export async function loginUser(c: Context<SessionEnv, '/login'>) {
   const { email, password } = (await c.req.json()) as LoginInputParameters;
+
+  const session = c.get('session');
+
+  session.get('user_id');
+
+  console.log(`user is ${session.get('user_id')}`);
 
   try {
     const user = await api.LoginUser(email, password);

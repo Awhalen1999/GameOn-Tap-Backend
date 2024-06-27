@@ -1,19 +1,12 @@
 import postgres from 'postgres';
+import 'dotenv/config';
 
 const sql = postgres({
-  host: 'localhost',
-  port: 5432,
-  database: 'gameontap',
-  user: 'postgres',
-  password: 'abc',
+  host: process.env.GAMEONTAP_DB_HOST,
+  port: Number(process.env.GAMEONTAP_DB_PORT),
+  database: process.env.GAMEONTAP_DB_NAME,
+  user: process.env.GAMEONTAP_DB_USER,
+  password: process.env.GAMEONTAP_DB_PASSWORD,
 });
 
 export default sql;
-
-// const sql = postgres({
-//   host: import.meta.env.VITE_GAMEONTAP_DB_HOST,
-//   port: Number(import.meta.env.VITE_GAMEONTAP_DB_PORT),
-//   database: import.meta.env.VITE_GAMEONTAP_DB_NAME,
-//   user: import.meta.env.VITE_GAMEONTAP_DB_USER,
-//   password: import.meta.env.VITE_GAMEONTAP_DB_PASSWORD,
-// });
