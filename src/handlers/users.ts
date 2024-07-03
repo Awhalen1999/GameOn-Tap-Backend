@@ -7,14 +7,18 @@ import { SessionEnv } from '../types';
 export async function loginUser(c: Context<SessionEnv, '/login'>) {
   const { email, password } = (await c.req.json()) as LoginInputParameters;
 
-  const session = c.get('session');
-
-  session.get('user_id');
-
-  console.log(`user is ${session.get('user_id')}`);
-
   try {
     const user = await api.LoginUser(email, password);
+
+    // Get the session
+    const session = c.get('session');
+
+    // Set the user's ID in the session
+    session.set('user_id', user.user_id);
+
+    // Log the user ID
+    console.log(`user is ${session.get('user_id')}`);
+
     return c.json(user);
   } catch (error: unknown) {
     c.status(401);
@@ -23,12 +27,22 @@ export async function loginUser(c: Context<SessionEnv, '/login'>) {
 }
 
 // Handler function to signup a new user
-export async function signupUser(c: Context<Env, '/signup'>) {
+export async function signupUser(c: Context<SessionEnv, '/signup'>) {
   const { username, email, password, theme } =
     (await c.req.json()) as SignupUserParameters;
 
   try {
     const user = await api.SignUpUser(username, email, password, theme);
+
+    // Get the session
+    const session = c.get('session');
+
+    // Set the user's ID in the session
+    session.set('user_id', user.user_id);
+
+    // Log the user ID
+    console.log(`user is ${session.get('user_id')}`);
+
     return c.json(user);
   } catch (error: unknown) {
     c.status(400);
