@@ -14,13 +14,14 @@ export async function loginUser(c: Context<SessionEnv, '/login'>) {
     const session = c.get('session');
 
     // Set the user's ID in the session
-    session.set('user_id', user.user_id);
+    session.set('user', user);
 
     // Log the user ID
-    console.log(`user is ${session.get('user_id')}`);
+    console.log(`user is ${session.get('user')}`);
 
     return c.json(user);
   } catch (error: unknown) {
+    console.log(JSON.stringify(error));
     c.status(401);
     return c.json({ message: (error as Error).message });
   }
@@ -38,14 +39,35 @@ export async function signupUser(c: Context<SessionEnv, '/signup'>) {
     const session = c.get('session');
 
     // Set the user's ID in the session
-    session.set('user_id', user.user_id);
+    session.set('user', user);
 
     // Log the user ID
-    console.log(`user is ${session.get('user_id')}`);
+    console.log(`user is ${session.get('user')}`);
 
     return c.json(user);
   } catch (error: unknown) {
     c.status(400);
     return c.json({ message: (error as Error).message });
   }
+}
+
+export async function logoutUser(c: Context<SessionEnv, '/logout'>) {
+  const session = c.get('session');
+
+  session.deleteSession();
+
+  return c.json({ message: 'Logged out' });
+}
+
+export async function authUser(c: Context<SessionEnv, '/auth'>) {
+  const session = c.get('session');
+
+  const user = session.get('user');
+
+  if (user === undefined) {
+    c.status(401);
+    return c.json({ message: 'User not authenticated' });
+  }
+
+  return c.json(user);
 }
