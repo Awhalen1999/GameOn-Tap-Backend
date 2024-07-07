@@ -17,7 +17,7 @@ export async function loginUser(c: Context<SessionEnv, '/login'>) {
     session.set('user', user);
 
     // Log the user ID
-    console.log(`user is ${session.get('user')}`);
+    console.log(`user is ${JSON.stringify(session.get('user'))}`);
 
     return c.json(user);
   } catch (error: unknown) {
@@ -42,7 +42,7 @@ export async function signupUser(c: Context<SessionEnv, '/signup'>) {
     session.set('user', user);
 
     // Log the user ID
-    console.log(`user is ${session.get('user')}`);
+    console.log(`user is ${JSON.stringify(session.get('user'))}`);
 
     return c.json(user);
   } catch (error: unknown) {
