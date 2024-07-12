@@ -64,7 +64,7 @@ export async function authUser(c: Context<SessionEnv, '/auth'>) {
 
   const user = session.get('user');
 
-  if (user === undefined) {
+  if (!user) {
     c.status(401);
     return c.json({ message: 'User not authenticated' });
   }
