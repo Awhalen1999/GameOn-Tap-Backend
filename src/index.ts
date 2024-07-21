@@ -4,13 +4,19 @@ import { cors } from 'hono/cors';
 import { GamesRouter, UsersRouter, RulesetsRouter } from './routers';
 import { CookieStore, sessionMiddleware, Session } from 'hono-sessions';
 
-const app = new Hono();
+const app = new Hono<{
+  Variables: {
+    session: Session;
+    session_key_rotation: boolean;
+  };
+}>();
 
 app.use(
   cors({
     origin: [
       'https://awhalen1999.github.io/GameOn-Tap/',
       'http://localhost:5173',
+      'http://127.0.0.1:8080',
     ],
     credentials: true,
   })
@@ -20,14 +26,16 @@ const store = new CookieStore();
 
 app.use(
   '*',
+
   sessionMiddleware({
     store,
-    encryptionKey: 'password_at_least_32_characters_long', // Required for CookieStore, recommended for others
-    expireAfterSeconds: 900, // Expire session after 15 minutes of inactivity
+    encryptionKey: 'password_at_least_32_characters_long',
+    expireAfterSeconds: 900,
     cookieOptions: {
-      sameSite: 'Lax', // Recommended for basic CSRF protection in modern browsers
-      path: '/', // Required for this library to work properly
-      httpOnly: true, // Recommended to avoid XSS attacks
+      sameSite: 'None',
+      path: '/',
+      httpOnly: true,
+      secure: false,
     },
   })
 );
