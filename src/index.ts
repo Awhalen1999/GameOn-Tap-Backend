@@ -16,7 +16,6 @@ app.use(
     origin: [
       'https://awhalen1999.github.io/GameOn-Tap/',
       'http://localhost:5173',
-      'http://127.0.0.1:8080',
     ],
     credentials: true,
   })
@@ -26,7 +25,6 @@ const store = new CookieStore();
 
 app.use(
   '*',
-
   sessionMiddleware({
     store,
     encryptionKey: 'password_at_least_32_characters_long',
@@ -35,7 +33,7 @@ app.use(
       sameSite: 'None',
       path: '/',
       httpOnly: true,
-      secure: false,
+      secure: true,
     },
   })
 );
