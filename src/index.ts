@@ -13,10 +13,7 @@ const app = new Hono<{
 
 app.use(
   cors({
-    origin: [
-      'https://awhalen1999.github.io/GameOn-Tap/',
-      'http://localhost:5173',
-    ],
+    origin: ['https://awhalen1999.github.io', 'http://localhost:5173'],
     credentials: true,
   })
 );
@@ -30,10 +27,10 @@ app.use(
     encryptionKey: 'password_at_least_32_characters_long',
     expireAfterSeconds: 900,
     cookieOptions: {
-      sameSite: 'None',
+      sameSite: 'Lax',
       path: '/',
       httpOnly: true,
-      secure: true,
+      secure: false,
     },
   })
 );
