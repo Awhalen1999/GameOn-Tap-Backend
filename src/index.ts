@@ -25,7 +25,7 @@ app.use(
   sessionMiddleware({
     store,
     encryptionKey: 'password_at_least_32_characters_long',
-    expireAfterSeconds: 900,
+    expireAfterSeconds: 7200, // 2 hours
     cookieOptions: {
       sameSite: 'None',
       path: '/',
