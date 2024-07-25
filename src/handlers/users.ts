@@ -1,55 +1,62 @@
 import { Context } from 'hono';
-import * as api from '../api/users';
-import { SignupUserParameters, LoginInputParameters } from '../data/users';
+import { LoginUser, SignUpUser } from '../api/users';
 import { SessionEnv } from '../types';
 
 // Handler function to login a user
 export async function loginUser(c: Context<SessionEnv, '/login'>) {
-  const { email, password } = (await c.req.json()) as LoginInputParameters;
-  console.log('Login handler called');
+  const { email, password } = (await c.req.json()) as {
+    email: string;
+    password: string;
+  };
 
   try {
-    const user = await api.LoginUser(email, password);
+    const user = await LoginUser(email, password);
 
-    // Get the session
+    // Set user data in session
     const session = c.get('session');
+    session.set('user', {
+      user_id: user.user_id,
+      email: user.email,
+      username: user.username,
+      theme: user.theme,
+    });
 
-    // Set the user's ID in the session
-    session.set('user', user);
-
-    // Log the user ID and session details for debugging
-    console.log(`User logged in: ${JSON.stringify(user)}`);
-    console.log(`Session data: ${JSON.stringify(session)}`);
+    console.log(`User logged in: ${JSON.stringify(session.get('user'))}`);
 
     return c.json(user);
-  } catch (error: unknown) {
-    console.log(JSON.stringify(error));
+  } catch (error) {
+    console.log(`Login error: ${(error as Error).message}`);
     c.status(401);
-    return c.json({ message: (error as Error).message });
+    return c.json({ message: 'Invalid email or password' });
   }
 }
 
 // Handler function to signup a new user
 export async function signupUser(c: Context<SessionEnv, '/signup'>) {
-  const { username, email, password, theme } =
-    (await c.req.json()) as SignupUserParameters;
-  console.log('Signup handler called');
+  const { username, email, password, theme } = (await c.req.json()) as {
+    username: string;
+    email: string;
+    password: string;
+    theme: string;
+  };
 
   try {
-    const user = await api.SignUpUser(username, email, password, theme);
+    const user = await SignUpUser(username, email, password, theme);
 
-    // Get the session
+    // Set user data in session
     const session = c.get('session');
+    session.set('user', {
+      user_id: user.user_id,
+      email: user.email,
+      username: user.username,
+      theme: user.theme,
+    });
 
-    // Set the user's ID in the session
-    session.set('user', user);
-
-    // Log the user ID and session details for debugging
-    console.log(`User signed up: ${JSON.stringify(user)}`);
-    console.log(`Session data: ${JSON.stringify(session)}`);
+    console.log(`User signed up: ${JSON.stringify(session.get('user'))}`);
 
     return c.json(user);
-  } catch (error: unknown) {
+  } catch (error) {
+    console.log(`Signup error: ${(error as Error).message}`);
     c.status(400);
     return c.json({ message: (error as Error).message });
   }
@@ -57,12 +64,10 @@ export async function signupUser(c: Context<SessionEnv, '/signup'>) {
 
 // Handler function to logout a user
 export async function logoutUser(c: Context<SessionEnv, '/logout'>) {
-  console.log('Logout handler called');
   const session = c.get('session');
-
   session.deleteSession();
 
-  console.log('User logged out');
+  console.log('User logged out, session cleared');
 
   return c.json({ message: 'Logged out' });
 }
@@ -71,7 +76,6 @@ export async function logoutUser(c: Context<SessionEnv, '/logout'>) {
 export async function authUser(c: Context<SessionEnv, '/auth'>) {
   console.log('Auth check handler called');
   const session = c.get('session');
-
   const user = session.get('user');
 
   console.log(`Auth check. User in session: ${JSON.stringify(user)}`);

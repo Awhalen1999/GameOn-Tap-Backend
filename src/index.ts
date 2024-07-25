@@ -27,10 +27,10 @@ app.use(
     encryptionKey: 'password_at_least_32_characters_long',
     expireAfterSeconds: 900,
     cookieOptions: {
-      sameSite: 'Lax',
+      sameSite: 'None',
       path: '/',
       httpOnly: true,
-      secure: false,
+      secure: true,
     },
   })
 );
