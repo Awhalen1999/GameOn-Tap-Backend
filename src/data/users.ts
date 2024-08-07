@@ -1,10 +1,11 @@
-import db from './db';
 import { User } from '../types';
+import { getSql } from './db';
 
 //login user
 export type LoginInputParameters = Omit<User, 'user_id' | 'username' | 'theme'>;
 
 export async function LoginUser({ email }: { email: string }): Promise<User> {
+  const db = await getSql();
   const users = await db`
     SELECT * FROM users
     WHERE email = ${email}
@@ -31,6 +32,7 @@ export async function SignupUser({
   password,
   theme,
 }: SignupUserParameters): Promise<User> {
+  const db = await getSql();
   const existingUsers = await db`
     SELECT * FROM users
     WHERE email = ${email} OR username = ${username}

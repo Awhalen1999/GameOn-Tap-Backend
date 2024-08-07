@@ -1,11 +1,12 @@
-import db from './db';
 import { Ruleset } from '../types';
+import { getSql } from './db';
 
 // Function to get all rulesets for a specific game and user
 export async function getRulesets(
   user_id: number,
   game_id: string
 ): Promise<Ruleset[]> {
+  const db = await getSql();
   const rulesets = await db`
     SELECT
       ruleset_id,
@@ -31,6 +32,7 @@ export async function getRuleset(
   game_id: string,
   ruleset_id: number
 ): Promise<Ruleset> {
+  const db = await getSql();
   const rulesets = await db`
     SELECT *
     FROM rulesets
@@ -56,6 +58,7 @@ export async function getActiveRuleset(
   user_id: number,
   game_id: string
 ): Promise<number> {
+  const db = await getSql();
   const activeRuleset = await db`
     SELECT ruleset_id
     FROM active_rulesets
@@ -74,6 +77,7 @@ export async function updateActiveRuleset(
   game_id: string,
   ruleset_id: number
 ): Promise<void> {
+  const db = await getSql();
   await db`
     UPDATE active_rulesets
     SET ruleset_id = ${ruleset_id}
@@ -86,6 +90,7 @@ export async function updateActiveRuleset(
 export type NewRuleset = Omit<Ruleset, 'ruleset_id'>;
 
 export async function createRuleset(ruleset: NewRuleset): Promise<Ruleset> {
+  const db = await getSql();
   const newRuleset = await db`
     INSERT INTO rulesets
       (game_id, user_id, name, rules)
@@ -108,6 +113,7 @@ export async function deleteRuleset(
   game_id: string,
   ruleset_id: number
 ): Promise<void> {
+  const db = await getSql();
   await db`
     DELETE FROM rulesets
     WHERE ruleset_id = ${ruleset_id} AND user_id = ${user_id} AND game_id = ${game_id}

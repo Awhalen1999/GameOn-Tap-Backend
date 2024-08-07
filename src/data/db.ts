@@ -38,23 +38,16 @@ async function createSqlConnection() {
     user: process.env.GAMEONTAP_DB_USER,
     password: process.env.GAMEONTAP_DB_PASSWORD,
     ssl: {
-      ca: certs, // todo need to be a string
+      ca: certs,
     },
   });
 }
 
 let sqlPromise: Promise<postgres.Sql>;
 
-(async () => {
-  try {
-    sqlPromise = createSqlConnection();
-    await sqlPromise; // Wait for the connection to be established
-  } catch (error) {
-    console.error('Error creating the SQL client:', error);
-  }
-})();
-
 export async function getSql() {
-  if (!sqlPromise) throw new Error("Database connection isn't established yet");
+  if (!sqlPromise) {
+    sqlPromise = createSqlConnection();
+  }
   return sqlPromise;
 }
