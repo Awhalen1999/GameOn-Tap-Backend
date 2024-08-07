@@ -43,15 +43,18 @@ async function createSqlConnection() {
   });
 }
 
-let sql: postgres.Sql;
+let sqlPromise: Promise<postgres.Sql>;
 
 (async () => {
   try {
-    sql = await createSqlConnection();
-    // You can now use sql here, or ensure it is correctly exported
+    sqlPromise = createSqlConnection();
+    await sqlPromise; // Wait for the connection to be established
   } catch (error) {
     console.error('Error creating the SQL client:', error);
   }
 })();
 
-export default sql;
+export async function getSql() {
+  if (!sqlPromise) throw new Error("Database connection isn't established yet");
+  return sqlPromise;
+}

@@ -3,7 +3,6 @@ import db from './db';
 
 export async function getGames(): Promise<Game[]> {
   if (!db) {
-    
   }
   const results = (await db`SELECT * FROM games`) as Game[];
 
