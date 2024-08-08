@@ -4,7 +4,7 @@ import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 async function getCerts() {
   // process.env.AWS_REGION
-  const s3 = new S3Client({ region: 'us-east-1' });
+  const s3 = new S3Client({ region: process.env.AWS_REGION });
 
   try {
     const data = await s3.send(
