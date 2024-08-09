@@ -1,6 +1,8 @@
 {
   "type": "module",
   "scripts": {
+    "build": "tsx scripts/build.ts",
+    "start": "node index.js",
     "dev": "tsx watch src/index.ts",
     "test": "vitest"
   },
@@ -16,7 +18,9 @@
   "devDependencies": {
     "@types/node": "^20.11.17",
     "@types/uuid": "^9.0.8",
+    "esbuild": "^0.23.0",
     "tsx": "^4.7.2",
-    "vitest": "^1.6.0"
+    "vitest": "^1.6.0",
+    "zip-lib": "^1.0.4"
   }
 }
