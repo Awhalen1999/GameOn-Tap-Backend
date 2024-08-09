@@ -29,25 +29,35 @@ async function getCerts() {
 }
 
 async function createSqlConnection() {
-  const certs = await getCerts();
+  try {
+    const certs = await getCerts();
 
-  return postgres({
-    host: process.env.GAMEONTAP_DB_HOST,
-    port: Number(process.env.GAMEONTAP_DB_PORT),
-    database: process.env.GAMEONTAP_DB_NAME,
-    user: process.env.GAMEONTAP_DB_USER,
-    password: process.env.GAMEONTAP_DB_PASSWORD,
-    ssl: {
-      ca: certs,
-    },
-  });
+    return postgres({
+      host: process.env.GAMEONTAP_DB_HOST,
+      port: Number(process.env.GAMEONTAP_DB_PORT),
+      database: process.env.GAMEONTAP_DB_NAME,
+      user: process.env.GAMEONTAP_DB_USER,
+      password: process.env.GAMEONTAP_DB_PASSWORD,
+      ssl: {
+        ca: certs,
+      },
+    });
+  } catch (error) {
+    console.error('Error creating SQL connection:', error);
+    throw new Error('Failed to create SQL connection');
+  }
 }
 
 let sqlPromise: Promise<postgres.Sql>;
 
 export async function getSql() {
   if (!sqlPromise) {
-    sqlPromise = createSqlConnection();
+    try {
+      sqlPromise = createSqlConnection();
+    } catch (error) {
+      console.error('Error getting SQL:', error);
+      throw new Error('Failed to get SQL');
+    }
   }
   return sqlPromise;
 }
