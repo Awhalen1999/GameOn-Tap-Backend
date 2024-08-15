@@ -38,6 +38,11 @@ app.use(
 app.route('/games', GamesRouter);
 app.route('/users', RulesetsRouter);
 app.route('/users', UsersRouter);
+// @ts-ignore
+app.get('/health', (c) => {
+  c.status(200);
+  return c.text('ok')
+})
 
 const port = 3000;
 
