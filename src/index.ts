@@ -49,7 +49,7 @@ app.get('/health', async (c) => {
   }
 });
 
-const port = 3000;
+const port = 80;
 
 serve({
   fetch: app.fetch,
