@@ -39,10 +39,15 @@ app.route('/games', GamesRouter);
 app.route('/users', RulesetsRouter);
 app.route('/users', UsersRouter);
 // @ts-ignore
-app.get('/health', (c) => {
-  c.status(200);
-  return c.text('ok')
-})
+app.get('/health', async (c) => {
+  try {
+    c.status(200);
+    return c.text('ok');
+  } catch (error) {
+    c.status(500);
+    return c.text('not ok');
+  }
+});
 
 const port = 3000;
 
