@@ -2,7 +2,7 @@
   "type": "module",
   "scripts": {
     "build": "tsx scripts/build.ts",
-    "start": "node index.js",
+    "start": "node dist/index.js",
     "dev": "tsx watch src/index.ts",
     "test": "vitest"
   },

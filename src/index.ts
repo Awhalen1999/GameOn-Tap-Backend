@@ -38,7 +38,7 @@ app.use(
 app.route('/games', GamesRouter);
 app.route('/users', RulesetsRouter);
 app.route('/users', UsersRouter);
-// @ts-ignore
+
 app.get('/health', async (c) => {
   try {
     c.status(200);
@@ -49,10 +49,11 @@ app.get('/health', async (c) => {
   }
 });
 
-const port = 80;
+const port = process.env.PORT || 8080;
 
 serve({
   fetch: app.fetch,
+  //@ts-ignore
   port,
 });
 

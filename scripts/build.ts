@@ -3,18 +3,6 @@ import * as zl from 'zip-lib';
 import * as fs from 'fs/promises';
 
 async function build() {
-  /**
-   * const entry = 'index'
-   * const out = 'dist'
-   * const src = 'src'
-   * const package = 'package.json'
-   * 
-   * entryPoints: [path.resolve(cwd(), src, `${entry}.ts`)]
-   *  
-   * copyFile(package, path.resolve(cwd(), out, package))
-   * 
-   * archiveFolder(out, `${out}.zip`)
-   */
   await esbuild.build({
     entryPoints: ['src/index.ts'],
     bundle: true,
@@ -22,9 +10,16 @@ async function build() {
     platform: 'node',
   });
 
-  await fs.copyFile('package.json', 'dist/package.json')
+  const packageJson = {
+    scripts: {
+      start: 'node index.js',
+    },
+  };
+  await fs.writeFile('dist/package.json', JSON.stringify(packageJson, null, 2));
 
   await zl.archiveFolder('dist', 'dist.zip');
+
+  console.log('Build completed and dist.zip created successfully.');
 }
 
 build();
