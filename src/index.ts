@@ -13,7 +13,11 @@ const app = new Hono<{
 
 app.use(
   cors({
-    origin: ['https://awhalen1999.github.io', 'http://localhost:5173'],
+    origin: [
+      'https://awhalen1999.github.io',
+      'http://localhost:5173',
+      'https://Gameontap-prod-env.eba-hmtmfnti.us-east-1.elasticbeanstalk.com',
+    ],
     credentials: true,
   })
 );
@@ -48,6 +52,8 @@ app.get('/health', async (c) => {
     return c.text('not ok');
   }
 });
+
+app.get('/', (c) => c.text('Welcome to the API'));
 
 const port = process.env.PORT || 8080;
 
