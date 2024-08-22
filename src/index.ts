@@ -11,6 +11,14 @@ const app = new Hono<{
   };
 }>();
 
+// Log all incoming requests
+app.use('*', async (c, next) => {
+  console.log(`Received ${c.req.method} request to ${c.req.url}`);
+  await next();
+  console.log(`Response status: ${c.res.status}`);
+});
+
+// CORS setup with logging
 app.use(
   cors({
     origin: [
@@ -22,8 +30,8 @@ app.use(
   })
 );
 
+// Log session middleware initialization
 const store = new CookieStore();
-
 app.use(
   '*',
   sessionMiddleware({
@@ -39,24 +47,33 @@ app.use(
   })
 );
 
+// Log routes registration
+console.log('Registering routes');
 app.route('/games', GamesRouter);
 app.route('/users', RulesetsRouter);
 app.route('/users', UsersRouter);
 
+// Health check route with logging
 app.get('/health', async (c) => {
   try {
+    console.log('Health check endpoint hit');
     c.status(200);
     return c.text('ok');
   } catch (error) {
+    console.error('Health check failed', error);
     c.status(500);
     return c.text('not ok');
   }
 });
 
-app.get('/', (c) => c.text('Welcome to the API'));
+// Root route with logging
+app.get('/', (c) => {
+  console.log('Root endpoint hit');
+  return c.text('Welcome to the API');
+});
 
+// Start the server with logging
 const port = process.env.PORT || 8080;
-
 serve({
   fetch: app.fetch,
   //@ts-ignore
