@@ -21,11 +21,7 @@ app.use('*', async (c, next) => {
 // CORS setup with logging
 app.use(
   cors({
-    origin: [
-      'https://awhalen1999.github.io',
-      'http://localhost:5173',
-      'https://Gameontap-prod-env.eba-hmtmfnti.us-east-1.elasticbeanstalk.com',
-    ],
+    origin: ['https://awhalen1999.github.io', 'http://localhost:5173'],
     credentials: true,
   })
 );
@@ -73,7 +69,7 @@ app.get('/', (c) => {
 });
 
 // Start the server with logging
-const port = 8080;
+const port = process.env.PORT || 8080;
 serve({
   fetch: app.fetch,
   //@ts-ignore
