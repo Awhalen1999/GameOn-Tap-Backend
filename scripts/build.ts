@@ -1,5 +1,4 @@
 import * as esbuild from 'esbuild';
-import * as zl from 'zip-lib';
 import * as fs from 'fs/promises';
 
 async function build() {
@@ -17,9 +16,7 @@ async function build() {
   };
   await fs.writeFile('dist/package.json', JSON.stringify(packageJson, null, 2));
 
-  await zl.archiveFolder('dist', 'dist.zip');
-
-  console.log('Build completed and dist.zip created successfully.');
+  console.log('Build completed successfully.');
 }
 
 build();
