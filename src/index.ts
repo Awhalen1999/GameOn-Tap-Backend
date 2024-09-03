@@ -21,7 +21,7 @@ app.use('*', async (c, next) => {
 // CORS setup with logging
 app.use(
   cors({
-    origin: ['https://awhalen1999.github.io', 'http://localhost:5173'],
+    origin: ['https://www.gameontap.xyz', 'http://localhost:5173'],
     credentials: true,
   })
 );
