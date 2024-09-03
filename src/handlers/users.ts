@@ -80,10 +80,14 @@ export async function authUser(c: Context<SessionEnv, '/auth'>) {
 
   console.log(`Auth check. User in session: ${JSON.stringify(user)}`);
 
+  // Check if user is present in the session
   if (!user) {
+    console.log('No user in session, returning 401');
     c.status(401);
     return c.json({ message: 'User not authenticated' });
   }
 
+  // If user is authenticated, return user data
+  console.log('User authenticated, returning user data');
   return c.json(user);
 }
