@@ -2,7 +2,7 @@ import { User } from '../types';
 import { getSql } from './db';
 
 //login user
-export type LoginInputParameters = Omit<User, 'user_id' | 'username' | 'theme'>;
+export type LoginInputParameters = Omit<User, 'user_id' | 'username'>;
 
 export async function LoginUser({ email }: { email: string }): Promise<User> {
   const db = await getSql();
@@ -15,7 +15,6 @@ export async function LoginUser({ email }: { email: string }): Promise<User> {
       user_id: users[0].user_id as number,
       email: users[0].email as string,
       username: users[0].username as string,
-      theme: users[0].theme as string,
       password: users[0].password as string,
     };
   } else {
@@ -30,7 +29,6 @@ export async function SignupUser({
   email,
   username,
   password,
-  theme,
 }: SignupUserParameters): Promise<User> {
   const db = await getSql();
   const existingUsers = await db`
@@ -43,10 +41,10 @@ export async function SignupUser({
     const [user] = await db.begin(async (sql) => {
       const [createdUser] = await sql`
       INSERT INTO users
-        (email, username, password, theme)
+        (email, username, password)
       VALUES
-        (${email}, ${username}, ${password}, ${theme})
-      RETURNING user_id, email, username, theme
+        (${email}, ${username}, ${password})
+      RETURNING user_id, email, username
     `;
 
       await sql`
@@ -70,7 +68,6 @@ export async function SignupUser({
       user_id: user.user_id as number,
       email: user.email as string,
       username: user.username as string,
-      theme: user.theme as string,
       password: user.password as string,
     };
   }

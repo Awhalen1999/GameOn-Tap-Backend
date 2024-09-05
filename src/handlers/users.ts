@@ -18,7 +18,6 @@ export async function loginUser(c: Context<SessionEnv, '/login'>) {
       user_id: user.user_id,
       email: user.email,
       username: user.username,
-      theme: user.theme,
     });
 
     console.log(`User logged in: ${JSON.stringify(session.get('user'))}`);
@@ -33,15 +32,14 @@ export async function loginUser(c: Context<SessionEnv, '/login'>) {
 
 // Handler function to signup a new user
 export async function signupUser(c: Context<SessionEnv, '/signup'>) {
-  const { username, email, password, theme } = (await c.req.json()) as {
+  const { username, email, password } = (await c.req.json()) as {
     username: string;
     email: string;
     password: string;
-    theme: string;
   };
 
   try {
-    const user = await SignUpUser(username, email, password, theme);
+    const user = await SignUpUser(username, email, password);
 
     // Set user data in session
     const session = c.get('session');
@@ -49,7 +47,6 @@ export async function signupUser(c: Context<SessionEnv, '/signup'>) {
       user_id: user.user_id,
       email: user.email,
       username: user.username,
-      theme: user.theme,
     });
 
     console.log(`User signed up: ${JSON.stringify(session.get('user'))}`);

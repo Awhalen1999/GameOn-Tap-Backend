@@ -36,8 +36,7 @@ export async function LoginUser(
 export async function SignUpUser(
   username: string,
   email: string,
-  password: string,
-  theme: string
+  password: string
 ): Promise<User> {
   const hashedPassword = hashPassword(password);
   try {
@@ -45,7 +44,6 @@ export async function SignUpUser(
       username,
       email,
       password: hashedPassword,
-      theme,
     });
     return newUser;
   } catch (error) {
