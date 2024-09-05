@@ -21,23 +21,29 @@ function checkPassword(password: string, hash: string): boolean {
   return passwordHash === originalHash;
 }
 
+export type UserWithoutPassword = Omit<User, 'password'>;
+
+// API function to login a user, now returns UserWithoutPassword
 export async function LoginUser(
   email: string,
   password: string
-): Promise<User> {
+): Promise<UserWithoutPassword> {
   const user: User | null = await loginUserFromDB({ email });
   if (user && checkPassword(password, user.password)) {
-    return user;
+    // Exclude the password field before returning the user after checking the password
+    const { password: _, ...userWithoutPassword } = user;
+    return userWithoutPassword; // return UserWithoutPassword
   } else {
     throw new Error('Invalid email or password');
   }
 }
 
+// API function to signup a new user, now returns UserWithoutPassword
 export async function SignUpUser(
   username: string,
   email: string,
   password: string
-): Promise<User> {
+): Promise<UserWithoutPassword> {
   const hashedPassword = hashPassword(password);
   try {
     const newUser = await signUpUserFromDB({
@@ -45,7 +51,10 @@ export async function SignUpUser(
       email,
       password: hashedPassword,
     });
-    return newUser;
+
+    // Exclude the password field before returning the user
+    const { password: _, ...userWithoutPassword } = newUser;
+    return userWithoutPassword; // return UserWithoutPassword
   } catch (error) {
     throw error;
   }

@@ -12,7 +12,7 @@ export async function loginUser(c: Context<SessionEnv, '/login'>) {
   try {
     const user = await LoginUser(email, password);
 
-    // Set user data in session
+    // Set user data in session without password
     const session = c.get('session');
     session.set('user', {
       user_id: user.user_id,
@@ -22,7 +22,7 @@ export async function loginUser(c: Context<SessionEnv, '/login'>) {
 
     console.log(`User logged in: ${JSON.stringify(session.get('user'))}`);
 
-    return c.json(user);
+    return c.json(user); // Return the user without the password field
   } catch (error) {
     console.log(`Login error: ${(error as Error).message}`);
     c.status(401);
@@ -41,7 +41,7 @@ export async function signupUser(c: Context<SessionEnv, '/signup'>) {
   try {
     const user = await SignUpUser(username, email, password);
 
-    // Set user data in session
+    // Set user data in session without password
     const session = c.get('session');
     session.set('user', {
       user_id: user.user_id,
@@ -51,7 +51,7 @@ export async function signupUser(c: Context<SessionEnv, '/signup'>) {
 
     console.log(`User signed up: ${JSON.stringify(session.get('user'))}`);
 
-    return c.json(user);
+    return c.json(user); // Return the user without the password field
   } catch (error) {
     console.log(`Signup error: ${(error as Error).message}`);
     c.status(400);
