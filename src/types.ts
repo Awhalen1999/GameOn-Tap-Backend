@@ -1,5 +1,5 @@
 import { Session } from 'hono-sessions';
-import { Env, Input } from 'hono/types';
+import { Env } from 'hono/types';
 
 export interface SessionEnv extends Env {
   Variables: {
