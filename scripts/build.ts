@@ -1,5 +1,3 @@
-//
-
 import * as esbuild from 'esbuild';
 import * as fs from 'fs/promises';
 
