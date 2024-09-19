@@ -11,7 +11,7 @@ const app = new Hono<{
   };
 }>();
 
-// CORS setup with logging
+// CORS setup
 app.use(
   cors({
     origin: ['https://www.gameontap.xyz', 'http://localhost:5173'],
@@ -19,7 +19,7 @@ app.use(
   })
 );
 
-// Log session middleware initialization
+// session middleware
 const store = new CookieStore();
 app.use(
   '*',
@@ -37,7 +37,6 @@ app.use(
 );
 
 // Log routes registration
-console.log('Registering routes');
 app.route('/games', GamesRouter);
 app.route('/users', RulesetsRouter);
 app.route('/users', UsersRouter);
@@ -48,7 +47,7 @@ app.get('/', (c) => {
   return c.text('Welcome to the API');
 });
 
-// Start the server with logging
+// Start the server
 const port = process.env.PORT || 8080;
 serve({
   fetch: app.fetch,
